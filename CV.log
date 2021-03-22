@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  20 MAR 2021 09:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  22 MAR 2021 13:51
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **CV.tex
 (./CV.tex
@@ -514,8 +515,6 @@ Package lastpage Info: Please have a look at the pageslts package at
 \MPscratchDim=\dimen151
 \MPnumerator=\count274
 \makeMPintoPDFobject=\count275
-\event274
-\makeMPintoPDFobject=\count275
 \everyMPtoPDFconversion=\toks19
 )
 \rcollength=\skip66
@@ -533,27 +532,26 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
 20.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-./CV.tex:326: Too many }'s.
-l.326 ...n Mathematics, The University of Chicago}
-                                                   \hfill{2016}
-? 
-./CV.tex:326: Emergency stop.
-l.326 ...n Mathematics, The University of Chicago}
-                                                   \hfill{2016}
-End of file on the terminal!
+) [1
 
- 
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+AED: lastpage setting LastPage
+[2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 429.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 429.
+ (./CV.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 429.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 429.
+Package rerunfilecheck Info: File `CV.out' has not changed.
+(rerunfilecheck)             Checksum: 9B972BDD13F9CA0CB78D4772E71B6438;539.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 429.
+ ) 
 Here is how much of TeX's memory you used:
- 6718 strings out of 480608
- 101388 string characters out of 5903631
- 365753 words of memory out of 5000000
- 22510 multiletter control sequences out of 15000+600000
- 545893 words of font info for 32 fonts, out of 8000000 for 9000
- 1146 hyphenation exceptions out of 8191
- 34i,11n,45p,217b,335s stack positions out of 5000i,500n,10000p,200000b,80000s
-./CV.tex:326:  ==> Fatal error occurred, no output PDF file produced!
-s out of 15000+600000
+ 6752 strings out of 480608
+ 101721 string characters out of 5903631
+ 371799 words of memory out of 5000000
+ 22523 multiletter control sequences out of 15000+600000
  551370 words of font info for 37 fonts, out of 8000000 for 9000
  1146 hyphenation exceptions out of 8191
  34i,11n,45p,217b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
