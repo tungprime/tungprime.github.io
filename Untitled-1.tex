@@ -1,0 +1,1781 @@
+\documentclass[12pt, a4paper]{amsart}
+%\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{a4wide}
+%\usepackage[sctrict]{changepage}
+\usepackage{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\numberwithin{section}{chapter}
+\numberwithin{equation}{section} %% Comment out for sequentially-numbered
+%\numberwithin{figure}{section} %% Comment out for sequentially-numbered
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem*{thmA}{Theorem A}
+\newtheorem*{thmAsharp}{Theorem A$\sharp$}
+\newtheorem*{mainthm}{Main Theorem}
+\newtheorem*{propB}{Proposition B}
+\newtheorem*{propC}{Proposition C}
+\newtheorem*{thmCsharp}{Theorem C$\sharp$}
+\newtheorem*{propD}{Proposition D}
+\newtheorem*{conjD}{Conjecture D}
+\newtheorem*{thmE}{Theorem E}
+\newtheorem*{thmEsharp}{Theorem E$\sharp$}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{plain}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{wish}[thm]{Wish}
+\newtheorem*{notation}{Notation}
+
+
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{question}[thm]{Question}
+\newtheorem{Hypothesis}[thm]{Hypothesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{graphicx}
+\usepackage{amscd}
+\usepackage[all,knot,poly]{xy}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+
+\usepackage{mathrsfs}
+%\usepackage{stmaryrd}
+%\usepackage{mathtext}
+\usepackage{hyperref}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Nast}{\mathbb{N}\setminus\{0\}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\OO}{\mathcal{O}}
+%\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\all}{\mathcal{A}ll}
+\newcommand{\s}{{Section}}
+\newcommand{\stab}{\mathrm{stab}}
+\newcommand{\id}{\trianglelefteq}
+\newcommand{\ox}{^\circledast}
+\newcommand{\dx}{^\times}
+\newcommand{\sx}{^\times\!}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\ind}{\mathrm{ind}}
+\newcommand{\res}{\mathrm{res}}
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\kom}{\mathfrak{K}om}
+\newcommand{\FP}{\mathrm{FP}}
+\newcommand{\gen}[1]{\langle #1\rangle}
+\newcommand{\fr}[1]{\mathfrak{#1}}
+\newcommand{\slot}{\,\underbar{\;\;}\,}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\ones}{J}
+\newcommand{\sJ}{\mathcal{J}}
+\newcommand{\Rad}{\text{Rad}}
+\newcommand{\se}{\text{ss}}
+
+
+%commands for revision
+\newcommand{\federico}[1]{{\color{blue}#1}}
+\newcommand{\tung}[1]{{\color{red}#1}}
+
+\title{On the joins of group rings}
+\author{}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    We show that the joins of a fixed number of circulant matrices of fixed dimensions form an algebra of matrices. We study its algebraic structure, we characterize its center, and we show how a blockwise extension of the Fourier transform provides both a generalization of the Circulant Diagonalization Theorem to joins of circulant matrices and an explicit isomorphism between the aforementioned algebra and its Wedderburn components
+\end{abstract}
+\tableofcontents
+
+\section{Introduction}
+
+Circulant matrices appear naturally in many problems in physics, spectral graph theory, and non-linear dynamics (see, for example, \cite{cir1, cir2, cir3, ko1}). They are closely connected with the theory of Fourier analysis and representation theory of finite groups. For example, for circulant matrices associated with a cyclic group, we can describe their spectrum explicitly via the discrete Fourier transform (see \cite{davis2013circulant} for an extensive treatment of this topic). For this reason, many problems involving circulant matrices have closed-form solutions. 
+
+
+Many real-world networks have structure beyond that of circulant networks. Let us imagine that there are $d$-networks with their own connections. These individual networks are not isolated, they interact with each other via a modeled network $G$ in the following way. Suppose $G$ is a graph with $d$ vertices $\{v_1, v_2, \ldots, v_d\}$. Let $G_1, G_2, \ldots, G_d$ be graphs on $k_1, k_2, \ldots, k_d$ nodes. The joined union $G[G_1, G_2, \ldots, G_d]$ is obtained from the union of $G_1, \ldots, G_d$ by joining with an edge each pair of a vertex from $G_i$ and a vertex from $G_j$ whenever $v_i$ and $v_j$ are adjacent in $G$ (see \cite{joined_union} for further details). Let $A_{G} =(a_{ij})$ be the adjacency matrix of $G$ and $A_{G_1}, A_{G_2}, \ldots, A_{G_d}$ be the adjacency matrices of $G_1, G_2, \ldots, G_d$ respectively. We can then observe that the adjacency matrix of $G[G_1, G_2, \ldots, G_d]$ has the following form 
+\begin{equation} \label{eq:joined_union1}
+A=\left(\begin{array}{c|c|c|c}
+A_1 & a_{1,2} J_{k_1, k_2} & \cdots & a_{1,d} J_{k_1, k_d} \\
+\hline
+a_{2,1} J_{k_2, k_1} & A_2 & \cdots & a_{2,d} J_{k_2, k_d} \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1} J_{k_d, k_1} & a_{d,2} J_{k_d, k_2} & \cdots & A_d
+\end{array}\right).
+\end{equation} 
+Here $J_{m,n}$ is the matrix of size $m \times n$ with all entries equal to $1.$
+
+In our investigation of the Kuramoto model of coupled oscillator networks, these joined networks appear quite often, and they provide some new interesting phenomena (\cite{ko3, ko4, CM1}). In particular, in \cite{CM1}, we describe the spectrum of the joins of circulant matrices (for cyclic groups) explicitly. We also apply our main results to study several edge-removal problems in spectral graph theory as well as describe new equilibrium points on the Kuramoto models (see \cite[Section 4, Section 5]{CM1}.)
+
+
+
+
+For these reasons, it is important to develop a systematic understanding of the joins of circulant matrices. A crucial observation here is that if in the $A_i$ in Equation \ref{eq:joined_union1} are circulant with respect to a group $G_i$, then the set of all such $A$ has the structure of a ring with identity. We can then utilize tools from ring theory and representation theory to study the abstract structural properties of the sets of such matrices. 
+
+
+The structure of this article is as follows. In section $2$, we recall the definition of a $G$-circulant matrix over a ring $R.$ We also provide several characterizations for $G$-circulant matrices. Using these characterizations, we reprove several results of Hurley (see \cite{hurley2006}) on the structure of the ring of $G$-circulant matrices. In section 3, we introduce the joint group ring of $G$-circulant matrices. We then discuss some of its basic properties such as the existence of a generalized augmentation map, its center, and its decomposition in the semisimple case. In particular, we prove a generalized version of Maschke's theorem. Section 4 studies the unit group in the joint algebra $J_{G_1, G_2, \ldots, G_d}(k)$. Here, we provide a complete characterization for a joint matrix to be invertible in $J_{G_1, G_2, \ldots, G_d}(k).$ Additionally, we study the precise structure of the unit group in the modular case. In Section 5, we study the Jacobson radical of the joint group ring. Specifically, we completely determine its Jacobson radical as well as its semi-simplification. In section 6 we discuss the necessary conditions for the joint algebra to be a Frobenius algebra. Finally, in the last section, we study the explicit structure of the joint algebra $J_{G_1, G_2, \ldots, G_d}(k)$ when the groups $G_i$ are all cyclic. 
+
+\section{$G$-circulant matrices over an arbitrary ring}
+Let $R$ be a ring (with unity), fixed for this section. \ A circulant $%
+n\times n$ matrix over $R$ is a matrix of the form 
+\[
+\left[ 
+\begin{array}{lllll}
+a_{1} & a_{2} & \cdots  & a_{n-1} & a_{n} \\ 
+a_{n} & a_{1} & \cdots  & a_{n-2} & a_{n-1} \\ 
+\vdots  & \vdots  & \ddots  & \vdots  & \vdots  \\ 
+a_{3} & a_{4} & \cdots  & a_{1} & a_{2} \\ 
+a_{2} & a_{3} & \cdots  & a_{n} & a_{1}%
+\end{array}%
+\right] 
+\]%
+where $a_{1},\cdots ,a_{n}\in R$. \ As we discussed in the introduction, such matrices have a wide variety of
+applications in mathematics.  It is not difficult to show that the
+set of all circulant $n\times n$ matrices over $R$ forms a ring isomorphic
+to the group ring $R[G]$ where $G= \langle g \rangle$ is cyclic of order $n$ and the
+isomorphism takes $\sum\limits_{i=1}^{n}a_{i}g^{i-1}$ to the matrix above.
+
+More generally, let $G$ any finite group, say of order $n$, and fix an
+indexed listing of $G$ so that $G=\{g_{i}\}_{i=1}^{n}$. \ It will be
+convenient for the purposes of this section to view $n\times n$ matrices
+over $R$ as having their rows and columns indexed by the elements of $G$ (so
+that the $i,j$ entry $M_{i,j}$ of a matrix $M$ will be renamed the $%
+g_{i},g_{j}$ entry). \ We will denote by $e_{g,h}$ the ``matrix unit" having
+entry $1$ in the $g,h$ position and $0$ elsewhere.
+
+\begin{defn}
+An $n \times n$ $G$-circulant matrix over $R$ is an $n\times n$ matrix 
+\[
+\left[ 
+\begin{array}{llll}
+a_{g_{1},g_{1}} & a_{g_{1},g_{2}} & \cdots  & a_{g_{1},g_{n}} \\ 
+a_{g_{2},g_{1}} & a_{g_{2},g_{2}} & \cdots  & a_{g_{2},g_{n}} \\ 
+\vdots  & \vdots  & \ddots  & \vdots  \\ 
+a_{g_{n},g_{1}} & a_{g_{n},g_{2}} & \cdots  & a_{g_{n},g_{n}}%
+\end{array}%
+\right] 
+\]%
+over $R$ with the property that
+for all $g,g_i,g_j \in G,$ $a_{g_i,g_j}=a_{gg_i,gg_j}$.\ 
+\end{defn}
+
+A circulant matrix as above is then the special case where  $G= \langle g \rangle$ is cyclic of order $n$ (relative to choosing $g_{i}=g^{i-1})$.  $G$-circulant
+matrices are defined and studied in \cite{hurley2006} and generically in \cite{kanemitsu2013matrices}; we will give alternate proofs for some of the theorems of those papers. In the process, some new results will emerge.
+
+\begin{notation}
+For $g\in G$ we denote by $P_{g}$ the permutation matrix such that right
+multiplication by $P_{g}$ permutes columns (indexed by $g_{1},g_{2},\cdots $%
+) by left multiplication by $g$. \ That is to say, for $A\in M_{n,n}(R)$ the 
+$gg_{j}$th column of $AP_{g\text{ }}$is the $g_{j}$th column of $A$. \
+Explicitly, $(P_{g})_{g_{i},g_{j}}=\delta _{gg_{i},g_{j}}$(Kronecker delta).
+\ We denote by $P_{g}^{\prime }$  the permutation matrix such that right
+multiplication by $P_{g}^{\prime }$ permutes columns by \textit{right
+multiplication by }$g$ (so the $g_{j}g$th column of $AP_{g}^{\prime }$ is
+the $g_{j}$th column of $A$). \ Explicitly $(P_{g}^{\prime
+})_{g_{i},g_{j}}=\delta _{g_{i}g,g_{j}}$. \ 
+\end{notation}
+
+\begin{rem}
+Notice that $g\neq h$ implies that the sets of positions where $P_{g}$ and $%
+P_{h}$ have entries of $1$ are disjoint, and in particular then that $%
+P_{g}\neq P_{h}$; the same considerations hold for $P_{g}^{\prime }$ and $%
+P_{h}^{\prime }$.
+\end{rem}
+
+\begin{rem}
+Using $g^{op}$ to work in the opposite group $G^{op}~$(and listing $%
+G^{op}=\{g_{i}^{op}\}_{i=1}^{n}$), $P_{g}^{\prime }=P_{g^{op}}$.
+\end{rem}
+
+\begin{prop}
+For all $g,h\in G$ we have $P_{g}P_{h}=P_{hg}$ and $P_{g}^{\prime
+}P_{h}^{\prime }=P_{gh}^{\prime }$. 
+\end{prop}
+
+\begin{proof}
+$(P_{g}P_{h})_{g_{r},g_{s}}=\sum\limits_{k=1}^{n}\delta
+_{gg_{r},g_{k}}\delta _{hg_{k},g_{s}}=\delta _{hgg_{r},g_{s}}=\left(
+P_{hg}\right) _{g_{r},g_{s}}$. \ A similar computation establishes the
+second equation, or we can apply the remark above.
+\end{proof}
+
+\begin{cor}
+The maps $g\mapsto P_{g^{-1}}$ and $g\mapsto P_{g}^{\prime }$ give
+isomorphisms from $G$ to $\{P_{g}|g\in G\}$ and to $\{P_{g}^{\prime }|g\in
+G\}$ respectively.
+\end{cor}
+
+\begin{proof}
+{}Immediate from the last proposition and our earlier remark implying that
+these maps are one-to-one. \ The latter map is, in fact, the "regular
+representation" of $G$.
+\end{proof}
+
+\begin{prop}
+For any ring $R$, finite group $G=\{g_{i}\}_{i=1}^{n}$, and $A\in M_{n,n}(R)$
+the following are equivalent:\newline
+(1) $A$ is $G$-circulant.\newline
+(2)  For all $g_i,g_j,g_k,g_l \in G$,  $g_{i}^{-1}g_{j}=g_{k}^{-1}g_{l}$ implies
+that $a_{g_{i},g_{j}}=a_{g_{k},g_{l}}.$
+\newline
+(3) \ There is some $\sum\limits_{k=1}^{n}b_{g_{k}}g_{k}\in R[G]$ such that 
+$A_{g_{i},g_{j}}=b_{g_{i}^{-1}g_{j}}$ for all $1\leq i,j\leq n$.\newline
+(4) \ There exist $c_{1},\cdots ,c_{n}\in R$ such that $A=\sum%
+\limits_{i=1}^{n}c_{i}P_{g_{i}}^{\prime }$.\newline
+(5) \ $P_{g}A=AP_{g}$ for all $g\in G$.
+\end{prop}
+
+\begin{proof}
+(1)$\leftrightarrow $(2): $\ $If (1) holds and $g_{i}^{-1}g_{j}=g_{k}^{-1}g_{l}$ then $%
+A_{g_{i},g_{j}}=A_{1,g_{i}^{-1}g_{j}}=A_{1,g_{k}^{-1}g_{l}}=A_{g_{k},g_{l}%
+\text{.}}$ Conversely, if (2) holds, just note that $%
+(gg_{i})^{-1}(gg_{j})=g_{i}^{-1}g_{j}$ to see that (1) holds as well. \
+\newline
+(2)$\rightarrow $(3): \ For $1\leq k\leq n$ set $b_{k}=A_{g_{1},g_{1}g_{k}}$%
+. \ Then $A_{g_{i},g_{j}}=A_{g_{1},g_{1}g_{i}^{-1}g_{j}}=b_{g_{i}^{-1}g_{j}}$%
+.\newline
+(3)$\rightarrow $(4): \ We may write $A=\sum%
+\limits_{g_{i},g_{j}}b_{g_{i}^{-1}g_{j}}e_{g_{i},g_{j}}$. \ Setting $%
+g_{k}=g_{i}^{-1}g_{j}$ and reindexing the sum, we have $A=\sum%
+\limits_{g_{k},g_{j}}b_{g_{k}}e_{g_{j}g_{k}^{-1},g_{j}}=\sum%
+\limits_{g_{k}}b_{g_{k}}\left(
+\sum\limits_{g_{j}}e_{g_{j}g_{k}^{-1},g_{j}}\right) $. \ We claim that $%
+\sum\limits_{g_{j}}e_{g_{j}g_{k}^{-1},g_{j}}$ is just $P_{g_{k}}^{\prime }$%
+, which gives the desired result. \ To see this, we compute 
+\[
+\left( \sum\limits_{g_{j}}e_{g_{j}g_{k}^{-1},g_{j}}\right)
+_{g_{r},g_{s}}=\sum\limits_{g_{j}}\delta _{g_{j}g_{k}^{-1},g_{r}}\delta
+_{g_{j},g_{s}}=\delta _{g_{s}g_{k}^{-1},g_{r}}=\delta
+_{g_{r}g_{k},g_{s}}=(P_{g_{k}}^{\prime })_{g_{r},g_{s}}\text{.}
+\]%
+\newline
+(4)$\rightarrow $(5): \ By (4) it is sufficient to show that for all $%
+g_{i},g_{j}$ we have $P_{g_{i}}^{\prime }$ commutes with $P_{g_{j}}$. \ This
+is essentially the fact that left multiplications in a group commute with
+right multiplications, which is just associativity. \ The explicit
+calculation:%
+\[
+\left( P_{g_{i}}^{\prime }P_{g_{j}}\right)
+_{g_{r},g_{s}}=\sum\limits_{g_{t}}\delta _{g_{r}g_{i},g_{t}}\delta
+_{g_{j}g_{t},g_{s}}=\delta _{g_{j}(g_{r}g_{i}),g_{s}}=\delta
+_{(g_{j}g_{r})g_{i},g_{s}}=\sum\limits_{g_{t}}\delta
+_{g_{j}g_{r},g_{t}}\delta _{g_{t}g_{i},g_{s}}=\left(
+P_{g_{j}}P_{g_{i}}^{\prime }\right) _{g_{r},g_{s}}\text{.}
+\]%
+\newline
+(5)$\rightarrow $(1): \ We have 
+\begin{eqnarray*}
+\left( P_{g}A\right) _{g_{r},g_{s}} &=&\sum\limits_{g_{k}\in
+G}(P_{g})_{g_{r},g_{k}}A_{g_{k},g_{s}}=\sum\limits_{g_{k}\in G}\delta
+_{gg_{r},g_{k}}A_{g_{k},g_{s}}=A_{gg_{r}.g_{s}}\text{ \ and } \\
+\left( AP_{g}\right) _{g_{r},g_{s}} &=&\sum\limits_{g_{k}\in
+G}A_{g_{r},g_{k}}(P_{g})_{g_{k},g_{s}}=\sum\limits_{g_{k}\in
+G}A_{g_{r},g_{k}}\delta _{gg_{k},g_{s}}=A_{g_{r},g^{-1}g_{s}}
+\end{eqnarray*}%
+\newline
+so if $A$ and $P_{g}$ commute for all $g$ then for all $g_{r},g_{s},g$ we
+have  $A_{g_{r},g^{-1}g_{s}}=A_{gg_{r}.g_{s}}$. \ Momentarily fixing $g$ and 
+$g_{r}$ and setting $g_{t}=g^{-1}g_{s}$, $g_{t}$ runs through $G$ as $g_{s}$
+does, and we then have $A_{g_{r},g_{t}}=A_{gg_{r}.gg_{t}}$, establishing (1).
+\end{proof}
+
+\begin{cor}
+(Hurley) The set of all $G$-circulant matrices over $R$ forms a ring
+isomorphic to $R[G]$.
+\end{cor}
+
+\begin{proof}
+From our earlier observation that the permutation matrices $P_{g}^{\prime }$
+are $\{0,1\}$-matrices no two of which have entries of $1$ in the same
+position, combined with the equivalence of condition (1) and condition (4)
+in the previous proposition, we have that the set of all $G$-circulant
+matrices over $R$ is a free left $R$-module on generators $\{P_{g}^{\prime
+}|g\in G\}$; by our prior proposition that $P_{g}^{\prime }P_{h}^{\prime
+}=P_{gh}^{\prime }$ it now follows that the map $\sum%
+\limits_{k=1}^{n}b_{k}g_{k}\mapsto \sum\limits_{k=1}^{n}b_{k}P_{g\text{ }%
+}^{\prime }$is the desired isomorphism.
+\end{proof}
+
+\begin{cor}
+(Hurley) \ If a $G$-circulant matrix $A$ is invertible as an element of $%
+M_{n,n}(R)$, then it is a unit in the ring of $G$-circulant matrices.
+\end{cor}
+
+\begin{proof}
+Since $A$ commutes with all $P_{g}$, so does its matrix inverse $A^{-1}$.
+\end{proof}
+
+Let $Z(R)$ denote the center of the ring $R$.
+
+\begin{cor} The centralizer of the ring of $G$-circulant matrices (with respect to the listing $G=\{g_{i}\}_{i=1}^{n}$) in $M_{n,n}(R)$ is exactly the ring of $G^{op}$-circulant matrices (with respect to the listing $G^{op}=\{g_{i}^{op}\}_{i=1}^{n}$) in $M_{n,n}(Z(R))$. 
+\end{cor}
+\begin{proof} This follows from the equivalence of (1), (4), and (5) in the above
+proposition and our earlier observation that $P_{g}^{\prime }=P_{g^{op}}$.
+\end{proof}
+
+\section{The algebras of joins of $G$-circulant matrices}
+\begin{defn}
+Let $G_1, G_2, \ldots, G_d$ be groups of size $k_1, k_2, \ldots, k_d$ respectively. A \textit{join of circulant matrices} over an arbitrary (associative, unital) ring $R$ is a matrix of the form
+\begin{equation}\label{eq:join circulant matrix}\tag{$\ast$}
+A=\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix} 
+\end{equation}
+
+where each $C_i$ is a $G_i$-circulant matrix of over $R$, and $a_{i,j}\ones_{k_1, k_2}$ is a $k_i \times k_j$ matrix with all entries equal to a constant $a_{i,j}\in R$.
+\end{defn} 
+
+For fixed $d$ and $G_1, G_2, \ldots, G_d$, we define $\sJ_{G_1,\dots,G_d}(R)$ to be the set of joins of $d$ circulant matrices over $R$ as defined above. 
+Let $M_n(R)$ denote the algebra of $n\times n$ matrices over $R$ where $n=\sum_{i=1}^d k_i$. We first have the following observation. 
+\begin{prop}
+$\mathcal{J}_{G_1,\dots,G_d}(R)$ is a subalgebra of $M_n(R)$.
+\end{prop}
+\begin{proof}
+It is immediate that $\mathcal{J}_{k_1,\dots,k_d}(R)$ is closed with respect to linear combinations. The product of two matrices $A,B$ in $J_{k_1,\dots,k_d}(R)$ can be performed blockwise: 
+
+
+\begin{equation}\label{eq:product}
+A\cdot B=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right)
+\cdot
+\left(\begin{array}{c|c|c|c}
+D_1 & b_{1,2}\ones & \cdots & b_{1,d}\ones \\
+\hline
+b_{2,1}\ones & D_2 & \cdots & b_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+b_{d,1}\ones & b_{d,2}\ones & \cdots & D_d
+\end{array}\right)
+\end{equation}
+
+In the product matrix, a typical  diagonal entry $(AB)_{ll}$  is of the form
+\[C_l D_l +\sum_{j=1,j\neq l}^dk_ja_{l,j}b_{j,l}\ones,\] and a typical off-diagonal $(AB)_{st}$ ($s\ne t $) is of the form 
+\[a_{s,t}\ones D_t+\sum_{j \neq s j\neq t}^{d}k_ja_{d,j}b_{j,2}\ones+C_t b_{t,s}\ones.
+\]
+
+
+\begin{comment}
+\scriptsize
+\begin{equation}\label{eq:product}\begin{split}
+&A\cdot B=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right)
+\cdot
+\left(\begin{array}{c|c|c|c}
+D_1 & b_{1,2}\ones & \cdots & b_{1,d}\ones \\
+\hline
+b_{2,1}\ones & D_2 & \cdots & b_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+b_{d,1}\ones & b_{d,2}\ones & \cdots & D_d
+\end{array}\right)=
+\\
+&\hspace*{-3cm}\left(\begin{array}{c|c|c|c}\displaystyle
+C_1D_1+\sum_{j=2}^dk_ja_{1,j}b_{j,1}\ones & \displaystyle C_1\cdot b_{1,2}\ones+a_{1,2}\ones\cdot D_2 +\sum_{j=3}^dk_ja_{1,j}b_{j,2}\ones & \displaystyle\cdots &\displaystyle C_1\cdot b_{1,d}\ones +\sum_{j=2}^{d-1}k_ja_{1,j}b_{j,d}\ones +a_{1,d}\ones\cdot D_d \\
+\hline
+\displaystyle a_{2,1}\ones\cdot D_1+C_2\cdot b_{2,1}\ones+\sum_{j=3}^dk_ja_{2,j}b_{j,1}\ones & \displaystyle C_2 D_2 +\sum_{j=1,j\neq2}^dk_ja_{2,j}b_{j,2}\ones & \displaystyle\cdots &\displaystyle C_2\cdot b_{2,d}\ones +\sum_{j=1,j\neq2}^{d-1}k_ja_{2,j}b_{j,d}\ones +a_{2,d}\ones\cdot D_d 
+\\
+\hline
+\vdots & \vdots & \ddots & \vdots 
+\\
+\hline
+\displaystyle a_{d,1}\ones \cdot D_1 + \sum_{j=2}^{d-1}k_ja_{d,j}b_{j,1}\ones + C_d\cdot b_{d,1}\ones& \displaystyle a_{d,2}\ones\cdot D_2+\sum_{j=1,j\neq2}^{d-1}k_ja_{d,j}b_{j,2}\ones+C_d\cdot b_{d,2}\ones& \displaystyle\cdots & \displaystyle \sum_{j=1}^{d-1}k_ja_{d,j}b_{j,d}\ones + C_dD_d
+\end{array}\right).
+\end{split}
+\end{equation}
+\normalsize
+\end{comment}
+Since the product of circulant matrices is a circulant matrix \cite{davis}, the diagonal blocks of the product are circulant. Moreover, since circulant matrices have a constant row sum, the non-diagonal blocks of the product are constant matrices. This shows that $\mathcal{J}_{k_1,\dots,k_d}(R)$ is closed with respect to products.
+\end{proof}
+
+\begin{lem} Let $G$ be a finite group. If $X$  is  $G$-circulant then its transpose $X^T$ is also $G$-circulant.  
+\end{lem}
+\begin{proof} Suppose  $G=\{g_1,g_2,\ldots,g_n\}$ and  
+\[
+X=[\alpha_{g_i^{-1}g_j}]_{n\times n}=\begin{bmatrix}
+\alpha_{g_1^{-1}g_1} & \alpha_{g_1^{-1}g_2}&\cdots & \alpha_{g_1^{-1}g_n}\\
+\alpha_{g_2^{-1}g_1} & \alpha_{g_2^{-1}g_2}&\cdots & \alpha_{g_2^{-1}g_n}\\
+\vdots & \vdots & &\vdots\\
+\alpha_{g_n^{-1}g_1} & \alpha_{g_n^{-1}g_2}&\cdots & \alpha_{g_n^{-1}g_n}
+\end{bmatrix}.\] For each $g\in G$, we set $\beta_g=\alpha_{g^{-1}}$. Clearly, $\beta_{g_i^{-1}g_j}=\alpha_{g_j^{-1}g_i}$, for $1\leq i,j\leq n$. Hence $X^T=[\beta_{g_i^{-1}g_j}]_{n\times n}$ and $X^T$ is $G$-circulant.
+\end{proof}
+
+
+\subsection{Augmentation Map} Recall that the augmentation map for a group algebra $RG$ is the map $\epsilon \colon RG \rightarrow R$ defined  by $\epsilon(\sum \alpha_g g) = \sum_g \alpha_g$. Identifying  $RG$ with $G$-circulant matrices, we can  
+  generalize the augmentation map to join of group algebras. It is a map $\epsilon\colon \sJ_{G_1,\ldots,G_d}\to M_d(R)$ defined as follows. For $A \in \sJ_{G_1,\ldots,G_d}$ given by 
+\[A=\begin{bmatrix} 
+A_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &A_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& A_d
+\end{bmatrix},\]
+define $\epsilon (A)$ to be the $d \times d$ matrix obtained  by replacing each block of $A$ with the corresponding row sum. That is, 
+\[\epsilon (A) = \begin{bmatrix}
+\epsilon(A_1) & k_2 a_{12} & \cdots  & k_d a_{1d} \\
+k_1 a_{21} & \epsilon(A_2) & \cdots & k_d a_{2d} \\
+\vdots&\vdots&  &\vdots\\
+k_1a_{n1} & k_2a_{n2}& \cdots & \epsilon(A_d)
+\end{bmatrix}.\]
+ We now show that this augmentation map is a ring homomorphism. It turns out that this statement is true more generally for block matrices whose blocks have constant row sums. Note that $A_i$ being a $G$-circulant matrix, it has the property that the sum of the entries in any row  is always the same, and is denoted by $\epsilon(A_i)$. To prove this more general statement, we begin with a lemma.
+
+\begin{lem} \label{generalaugmentation}
+Let $\mathcal{C}$ denote the collection of arbitrary  matrices $X$ over a unital ring with the property that the sum of any row  is constant, denoted $\epsilon(X)$. For any two matrices $A$ and $B$ in $\mathcal{C}$, we have the following. 
+\begin{enumerate}
+    \item If $A+B$ is defined, then  $\epsilon(A+B) = \epsilon(A)+ \epsilon(A)$\\
+    \item If $AB$ is defined, then $\epsilon(AB) = \epsilon(A)\epsilon(B)$
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+(1) is obvious. For (2), we begin by showing that $AB$ has constant row sums. Let $A$ be an $m \times n$ matrix and $B$ be an $n \times q$, so the product $AB$ is defined. The sum of the entries in the $i$ th row of $AB$ is given by
+\[
+ \sum_{j = 1}^q (AB)_{ij} 
+  =  \sum_{j=1}^q \sum_{k=1}^n A_{ik}B_{kj}
+  =  \sum_{k=1}^n A_{ik}\left( \sum_{j=1}^q B_{kj} \right)
+  =\sum_{k=1}^n A_{ik}\left( \epsilon(B) \right)\\
+ = \epsilon(A) \epsilon(B).
+\]
+This shows that the rows sums of $AB$ are constant, and  that $\epsilon(AB) =\epsilon(A)\epsilon(B)$.
+\end{proof}
+
+\begin{prop}
+Let $A$ and $B$ be $d \times d$ block matrices where each block belongs to set $\mathcal{C}$. Then the map $\epsilon$ which sends each such block matrix to the $d \times d$ matrix obtained by replacing each block entry with the corresponding row sum respects addition and multiplication. In particular, the augmentation map on the join of group algebras is a ring homomorphism.
+\end{prop}
+
+\begin{proof}
+The fact that $\epsilon$ respects addition is clear. It remains to show that $\epsilon(AB) = \epsilon(A) \epsilon(B)$.  We will show that the $(i, j)$th is the same on both sides.
+\begin{eqnarray*}
+(\epsilon(AB))_{ij} & = &  \epsilon( \sum_{k=1}^n A_{ik} B_{kj})\\
+& = & \sum \epsilon(A_{ik}) \epsilon(B_{kj})  \ \ \text{(by  Lemma \ref{generalaugmentation})}\\ 
+& & \sum (\epsilon(A))_{ik} (\epsilon(B))_{kj} \\
+& = & (\epsilon(A) \epsilon(B))_{ij}
+\end{eqnarray*}
+
+The last statement about augmentation map now follows because elements in a join of group algebras have the property that their blocks have constant row sums.
+\end{proof}
+
+
+
+
+
+
+
+
+For each $1\leq i\leq d$, let $E_{ii}$ be the matrix which has a 1 at the $(i,i)$-position and zeros in all other positions.
+
+\begin{lem}
+  If $A$ is in the center of $\sJ_{G_1,\ldots,G_d}$ then both $\epsilon(A)$ and $\epsilon(A^T)$ commute with $E_{ii}$ for every $1\leq i\leq d$.
+\end{lem}
+\begin{proof} Let $B_i$ be the matrix in $\sJ_{G_1,\ldots,G_d}$  defined as follows: all blocks  of $B_i$ are zeros except the $(i,i)$-diagonal block, which is the $G$-circulant matrix with $[1\; 0 \; \cdots \; 0]$ as its first row. Clearly $\epsilon(B_i)=\epsilon(B_i^T)=E_{ii}$, and $A$ commutes with $B_i$. Since $B_i$ is an $(0,1)$-matrix, one has $(XB_i)^T=B_i^TX^T$ and $(B_iY)^T=Y^TB_i^T$, for all matrices $X,Y$. Hence 
+\[
+A^T B_i^T=(B_iA)^T=(AB_i)^T=B_i^TA^T,
+\] 
+i.e., $A^T$ commutes with $B_i^T$. The lemma follows since $\epsilon$ is a ring homomorphism.
+
+\end{proof}
+
+\begin{prop} \label{prop:center}
+For any $d,k_1,\dots,k_d\in\N$, the centre of $J_{k_1,\dots,k_d}(R)$ is made of the matrices \eqref{eq:join circulant matrix} such that all $a_{i,j}=0$, all $C_i$ have the same row sum: $\epsilon_1(C_{1}):=\sum_j(C_1)_{1,j}=\dots=\epsilon_d(C_{d}):=\sum_j(C_d)_{1,j}$, and each $C_i$ is in the center of $\sJ_{G_i}$. 
+\end{prop}
+
+\begin{proof}
+Let 
+\[A=\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix}\] 
+be in the center of $J_{k_1,\dots,k_d}(R)$. Then by the previous lemma, 
+\[\epsilon(A)
+=\begin{bmatrix} 
+\epsilon_1(C_1)&k_2a_{12} &\cdots & k_da_{1d}\\
+k_1a_{21} &\epsilon_2(C_2) &\cdots & k_da_{2d}\\
+\vdots&\vdots& &\vdots\\
+k_1a_{d1}&k_2a_{d2}&\cdots& \epsilon_d(C_d)
+\end{bmatrix}
+\] commutes with $E_{ii}$, for every $i=1,\ldots,d$. 
+This implies that $\epsilon(A)$ is diagonal. Apply the above argument to $A^T$, we see that 
+\[\epsilon(A^T)
+=\begin{bmatrix} 
+\epsilon_1(C_1)&k_2a_{21} &\cdots & k_da_{d1}\\
+k_1a_{12} &\epsilon_2(C_2) &\cdots & k_da_{d2}\\
+\vdots&\vdots& &\vdots\\
+k_1a_{1d}&k_2a_{2d}&\cdots& \epsilon_d(C_d)
+\end{bmatrix}\]
+ is also diagonal. So, $k_i a_{ij}=k_ja_{ij}=0$ for every $i\not=j$.
+
+Now let 
+\[B=\begin{bmatrix} 
+D_1&b_{12} J_{k_1,k_2} &\cdots & b_{1d}J_{k_1,k_d}\\
+b_{21}J_{k2,k_1} &D_2 &\cdots & b_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+b_{d1}J_{k_d,k_1}&b_{d2}J_{k_d,k_2}&\cdots& D_d
+\end{bmatrix}\]
+be any matrix in $sJ_{k_1,\dots,k_d}(R)$. The $(1,1)$-block of $AB$ is
+\[
+C_1D_1+k_2a_{12}b_{21}J_{k_1,k_1}+\cdots+k_da_{1d}b_{d1}J_{k_1,k_1}=C_1D_1.
+\]
+The $(1,1)$-block of $BA$ is 
+\[
+D_1C_1+b_{12}k_2a_{21}J_{k_1,k_1}+\cdots+b_{1d}k_da_{d1}J_{k_1,k_1}=D_1C_1.
+\]
+Hence $C_1D_1=D_1C_1$. This implies that $C_1$ is in the center of $\sJ_{G_1}$. Similarly $C_i$ is  is in the center of $\sJ_{G_i}$.
+
+Next, we compare the $(1,2)$-blocks of $AB$ and $BA$. The $(1,2)$-block of $AB$ is
+\[
+\begin{aligned}
+\epsilon_1(C_1)b_{12}J_{k_1,k_2}+a_{12}\epsilon_2(D_2)J_{k_1,k_2}+k_3a_{13}b_{32}J_{k_1,k_2}+\cdots+k_da_{1d}b_{d2}J_{k_1,k_2}\\
+=\epsilon_1(C_1)b_{12}J_{k_1,k_2}+a_{12}\epsilon_2(D_2)J_{k_1,k_2}.
+\end{aligned}
+\]
+The $(1,2)$-block of $BA$ is
+\[
+\begin{aligned}
+\epsilon_1(D_1)a_{12}J_{k_1,k_2}+b_{12}\epsilon_1(C_1)J_{k_1,k_2}+k_3b_{13}a_{32}J_{k_1,k_2}+\cdots+k_db_{1d}a_{d2}J_{k_1,k_2}\\
+=\epsilon_1(D_1)a_{12}J_{k_1,k_2}+b_{12}\epsilon_2(C_2)J_{k_1,k_2}.
+\end{aligned}
+\]
+Hence 
+\[
+\epsilon_1(C_1)b_{12}+a_{12}\epsilon_2(D_2)=\epsilon_1(D_1)a_{12}+b_{12}\epsilon_2(C_2).
+\]
+By choosing $B$ such that $b_{12}=0$, $\epsilon_1(D_1)=0$ and $\epsilon_2(D_2)=1$, we imply that $a_{12}=0$. Then by choosing $B$ such that $b_{12}=1$, we imply that $\epsilon_1(C_1)=\epsilon_2(C_2)$.
+
+Similarly, we obtain that $a_{ij}=0$ for every $i\not= j$ and $\epsilon_1(C_1)=\epsilon_2(C_2)=\cdots=\epsilon(C_d)$. 
+
+The converse implication is clear.
+\end{proof}
+{\color{red} Corollary: The number of irreducible modules. Dimension of centers and the numbers of irreducible modules
+\begin{cor} For a join algebra $A=J_{G_1,\dots,G_d}(k)$ where $k$ is a field, the $k$-dimension of the center of $A$ is  $\sum_{i=1}^d dim_k(Z(k[G_i]))-d+1=\sum_{i=1}^dc(G_i)-d+1$ where $Z(k[G_i])$ denotes the center of the group algebra and $c(G_i)$ denotes the number of conjugacy classes in $G$. \end{cor}}
+
+
+Next, we discuss some further ring-theoretic properties of the joint algebra $\mathcal{J}_{G_1, G_2, \ldots, G_d}(R)$. Before doing so, we first recall some notations in ring theory. Our main reference for this part is \cite{lam}. We first recall the definition of simisimplicity.
+
+\begin{defn}(\cite[Theorem and Definition 2.5]{lam})
+
+Let $M$ be a module over a ring $R$. Then 
+\begin{enumerate}
+\item We say that $M$ is semisimple if every $R$-submodule of $M$ is an $R$-submodule direct summand of $M.$
+ \item We say that $R$ is semisimple if all left $R$-modules are semisimple. Equivalently, $R$ is semisimple if the left regular $R$-module $_{R}R$ is semisimple. 
+ \end{enumerate} 
+\end{defn}
+
+A closely related notion of semisimplicity is $J$-simplicity, which we now recall. 
+\begin{defn}
+Let $R$ be a ring. The Jacobson radical of $R$, denoted by $\Rad(R)$, is the intersection of all maximal left ideals in $R.$ The $R$ is called Jacobson semisimple if $\Rad(R)=0.$
+\end{defn}
+A famous theorem of Maschke says the following.
+\begin{thm}(Maschke theorem, \cite[Theorem 6.1]{lam}) 
+
+Let $R$ be a semisimple ring and $G$ a finite group such that $|G|$ is invertible in $R$. Then the group algebra $R[G]$ is semisimple. \end{thm}
+The following theorem is a natural generalization of Maschke's theorem to the joint algebra $\mathcal{J}_{G_1, G_2, \ldots, G_d}(R)$. 
+
+\begin{thm} (Generalized Maschke theorem) \label{thm:maschke}
+Let $R$ be a semisimple ring. Suppose that $|G_i|$ is invertible in $R$ for all $1 \leq i \leq d.$ Then the joint algebra $\sJ_{G_1, G_2, \ldots, G_d}(R)$ is semisimple. 
+\end{thm}
+{\color{red}In this section, we provide the first proof for this theorem. The 
+second proof can be found in Section $5$ where we describe the Jacobson radical of $J_{G_1, G_2, \ldots, G_d}(R)$ explicitly.} 
+To explain the first proof, we first discuss the structure of the group ring $R[G]$ when $|G|$ is invertible in $R.$ Let $\varepsilon$ be the augmentation map $\varepsilon: R[G] \to R.$ Let $\Delta(G) =\Delta_{R}(G)$ be the kernel of $\varepsilon.$ Since $|G|$ is invertible in $R$, we can consider 
+\[ e_{G}=\frac{1}{|G|} \sum_{g \in G} g .\] 
+We can easily see that $e_G$ is a central idempotent in $R[G]$. Furthermore, by \cite[Proposition 3.6.7]{GR}, we have 
+\begin{prop} \label{prop:splitting}
+Suppose that $|G|$ is invertible in $R$. Then $R[G]$ is a direct products of the following rings 
+\[ R[G] \cong R[G]e_G \times R[G](1-e_G) .\] 
+Furthermore 
+\[ R[G] e_G \cong R, \]
+and 
+\[ R[G](1-e_G) \cong \Delta_{R}(G) .\] 
+In particular, $\Delta(G)$ is a semisimple ring.
+\end{prop}
+
+A direct generalization of this structure theorem is the following. 
+\begin{thm} \label{thm:decomposition}
+Assume that $G_i$ is invertible in $R$ for all $1 \leq i \leq d.$ Then the joint algebra $\sJ_{G_1, G_2, \ldots, G_d}(R)$ is a direct product of the following rings 
+\[ \sJ_{G_1, G_2, \ldots, G_d}(R) \cong M_d(R) \times \prod_{i=1}^d \Delta_{R}(G_i) .\] 
+\end{thm}
+
+\begin{proof}
+Let $f_i=f_{G_i}=1-e_{G_i} \in R[G_i]$ where $e_{G_i}$ is defined as above. Since the ring of all circulant matrices is isomorphic to the group ring $R[G_i]$, we can consider $f_i$ as a $G_i$-circulant matrix as well. Let $\tilde{f}_i$ be the following matrix in $\sJ_{G_1, G_2, \ldots, G_d}(R)$
+\[
+\tilde{f}_i =\left(\begin{array}{c|c|c|c}
+0 & 0 & \dots & 0 \\
+\hline
+0 & 0 & \dots & 0 \\
+\hline
+\vdots & \vdots & f_i & \vdots\\
+\hline
+0 & 0 & \dots & 0
+\end{array}
+\right).
+\]
+In other words, all blocks of $\tilde{f}_i$, except the $i$-digonal block which is $f_i$,  are $0.$  Additionally, we define 
+\[ \tilde{f}_{d+1}=I_n-\sum_{i=1}^d \tilde{f}_i=\bigoplus_{i=1}^{d} e_{G_i}. \] 
+By definition, we have 
+\[ \tilde{f}_i^2 = \tilde{f}_i, \forall 1 \leq i \leq d+1 .\]
+Furthermore, by Proposition \ref{prop:center}, $f_i$ belongs to the center of $\sJ_{G_1, G_2, \ldots, G_d}(R).$ We conclude that for all $i$, $\tilde{f}_i$ is a central idempotent in $\sJ_{G_1, G_2, \ldots,G_d}(R).$ Consequently, we have the following ring isomorphism 
+\[ \sJ_{G_1, \ldots, G_d}(R) \cong \tilde{f}_{d+1} J_{G_1, \ldots, G_d}(R) \times \prod_{i=1}^d \tilde{f}_{i} J_{G_1, \ldots, G_d}(R) .\] 
+Direct calculations show that for $1 \leq i \leq d$ 
+\[ \tilde{f}_{i} J_{G_1, \ldots, G_d}(R) \cong \Delta_R(G_i) .\] We claim that the augmentation map 
+\[ \varepsilon: J_{G_1, G_2, \ldots, G_d}(R) \to M_d(R) \] 
+induces a ring isomorphism 
+\[ \varepsilon: \tilde{f}_{d+1} J_{G_1, G_2, \ldots, G_d}(R) \to M_d(R).\] 
+Since $\varepsilon(\tilde{f}_{d+1})=1$, we have 
+\[ \varepsilon(\tilde{f}_{d+1} A) = \varepsilon(A) .\] 
+Because the map $\varepsilon: \sJ_{G_1, G_2, \ldots, G_d}(R) \to M_d(R)$ is surjective, the above equality shows that the induced map on $\tilde{f}_{d+1} \sJ_{G_1, G_2, \ldots, G_d}(R)$ is surjective as well. We claim that it is injective as well. In fact, suppose that $\tilde{f}_{d+1} A \in \ker(\varepsilon)$ for some $A \in \sJ_{G_1, G_2, \ldots, G_d}(R).$ Suppose that $A$ has the following form 
+\[A=\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix}.\]
+Then 
+\[ 0= \varepsilon(A) 
+=\begin{bmatrix} 
+\epsilon_1(C_1)&k_2a_{12} &\cdots & k_da_{1d}\\
+k_1a_{21} &\epsilon_2(C_2) &\cdots & k_da_{2d}\\
+\vdots&\vdots& &\vdots\\
+k_1a_{d1}&k_2a_{d2}&\cdots& \epsilon_d(C_d)
+\end{bmatrix}.
+\]
+Since $k_i=|G_i|$ are invertible in $R$, we conclude that $a_{ij}=0.$ Additionally 
+\[ \varepsilon(C_1) = \varepsilon(C_2) = \ldots =\varepsilon(C_d) = 0 .\] 
+We then see that $\tilde{f}_{d+1}A=0.$ We conclude that the   map 
+\[ \varepsilon: \tilde{f}_{d+1} J_{G_1, G_2, \ldots, G_d}(R) \to M_d(R),\] 
+is injective. 
+\end{proof}
+
+We are now ready to prove Theorem \ref{thm:maschke}. \\ 
+\textbf{Proof of Theorem \ref{thm:maschke}}. Since $R$ is semisimple, by Morita equivalence we conclude that $M_d(R)$ is semisimple. Furthermore, by the classical Maschke theorem, we know that $\Delta(G_i)$ is semisimple for $1 \leq i \leq d.$ As a product of semisimple rings is semisimple, Theorem \ref{thm:decomposition} implies that $\sJ_{G_1, G_2, \ldots, G_d}(R)$ is semisimple as well. 
+
+
+We discuss some consequences of Theorem \ref{thm:decomposition}. 
+
+\begin{prop} \label{prop:number_of_irr_modules}
+Suppose that $k$ is algebraically closed and $\text{char}(k)$ is relatively prime to $\prod_{i=1}^d |G_i|$. Then the number of irreducible modules over $J_{G_1, G_2, \ldots, G_d}(k)$ is 
+\[ c(G_1)+c(G_2)+\ldots+c(G_d)-d+1 .\] 
+where $c(G_i)$ is the number of conjugacy classes of $G_i$.
+\end{prop}
+
+
+\begin{proof}
+By Artin-Wedderburn theorem, the number of simple modules over $k[G_i]$ is $c(G_i).$ From the decomposition $k[G_i] \cong k \times \Delta_{k}(G)$, we conclude that the number of irreducible modules over $\Delta_{k}(G)$ is $c(G_i)-1.$ Finally, by the Morita equivalent, there is exactly one irreducible module over $M_d(k)$. Therefore, by Theorem \ref{thm:decomposition}, we conclude that the number of irreducible modules over $\sJ_{G_1, G_2, \ldots, G_d}(k)$ is 
+\[ 1+ \sum_{i=1}^d (c(G_i)-1) =\sum_{i=1}^d c(G_i)-d+1 .\] 
+\end{proof}
+
+Let us discuss some special cases.
+
+\begin{ex} \label{ex:cyclic}
+Suppose that $G_i=\Z/k_i$, the cyclic group of order $k_i.$ Let $R=k$ be an algebraically closed field of characteristic $0$. Then, we have 
+\[ k[G_i] \cong k[x]/(x^{k_i}-1) \cong \prod_{i=1}^{k_1} k .\]
+By Theorem \ref{thm:decomposition}, we conclude that 
+\[ \sJ_{G_1, G_2, \ldots, G_d} \cong M_d(k) \times k^{n-d},\]
+where $n =\sum_{i=1}^d k_i.$ Please see the last section for an explicit map for this isomorphism. 
+\end{ex}
+
+\begin{ex} \label{ex:join}
+Let us consider $G_1=D_{2n}$,  $G_2= \Z/2$. Suppose that $k$ is an algebraically closed field of characteristic $0.$ By Artin-Wedderburn theorem (see \cite[Section 18.3]{james2001representations}), we know that 
+\[ k[D_{2n}] \cong  \begin{cases}
+  k^2 \times M_2(k)^{\frac{n-1}{2}}  & \text{if } n \text{ is odd} \\
+  k^4 \times M_2(k)^{\frac{n-2}{2}} & \text{if } n \text{ is even}.
+\end{cases} .\] 
+Consequently 
+\[ \Delta(D_{2n})\cong  \begin{cases}
+  k \times M_2(k)^{\frac{n-1}{2}}  & \text{if } n \text{ is odd} \\
+  k^3 \times M_2(k)^{\frac{n-2}{2}} & \text{if } n \text{ is even}.
+\end{cases} .\] 
+We also know that 
+\[ \Delta(\Z/2)= k .\] 
+Consequently, by Theorem \ref{thm:decomposition}, we have 
+\[ \sJ_{D_{2n}, \Z/2}(k)  \cong  \begin{cases}
+  k^2 \times M_2(k)^{\frac{n+1}{2}}  & \text{if } n \text{ is odd} \\
+  k^4 \times M_2(k)^{\frac{n}{2}} & \text{if } n \text{ is even}. 
+\end{cases} .\] 
+We conclude that 
+\[ \sJ_{D_{2n}, \Z/2}(k) \cong k[D_{2(n+2)}] .\] 
+\end{ex}
+We give another example of $G$ such that the group algebra of  $k[G]$ is isomorphic to the joint algebra $J_{G_1, G_2, \ldots, G_d}(k)$ for some $d \geq 2.$ 
+\begin{ex} 
+Assume that $k$ is an algebraically closed field whose characteristics is different from $2$ and $3$. Then the group algebra $k[S_4]$ is isomorphic to any joint algebra $J_{G_1, G_2}(k)$ where $G_1$ is the trivial group and $G_2$ is the group of order $21$ with the following presentation 
+\[ \langle x,y: x^7=y^3=1, yxy^{-1}=x^2 \rangle .\] 
+
+In fact, from the representations of $G_2$ (see \cite[Theorem 25.10]{james2001representations}) we have 
+\[ k[G_2] \cong k^{3} \times M_3(k)^2 ,\] 
+Additionally, from the representations of $S_4$ (see \cite[Example 16.3]{james2001representations}), we have 
+
+\[ k[S_4] \cong k^2 \times M_2(k) \times M_3(k)^2 .\] 
+By Theorem \ref{thm:decomposition} we have 
+\[ J_{G_1, G_2}(k) \cong k^2 \times M_2(k) \times M_3(k)^2 .\]
+Consequently 
+\[ k[S_4] \cong J_{G_1, G_2}(k) .\]
+\end{ex}
+
+
+
+
+
+
+
+
+%
+%
+%
+%
+%
+\section{Characterization of units in the algebra $\mathcal{J}_{G_1, G_2, \ldots, G_d}(k)$}
+
+\bigskip
+
+In this section we work over a field $k$. Let finite groups $G_{1},G_{2},\cdots ,G_{d}$ be of
+respective orders $l_{1},l_{2},\cdots ,l_{d}$. We characterize the units in
+the join $\mathcal{J}_{G_1, G_2, \ldots, G_d}(k)$.\ \ 
+\begin{defn}  A $G_i-$circulant matrix $A$ is said to be almost invertible if and only if $\varepsilon_i(A)=0$ and nullity$(A)=1$.   \end{defn}   \ The result is:
+
+\bigskip
+
+\begin{thm} \label{unitstheorem}
+An element \begin{equation}\label{eq:join circulant matrix}\tag{$\ast$}
+X=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right),
+\end{equation} is a unit in $\mathcal{J}_{G_1, G_2, \ldots, G_d}(k)$ if and only if the "principal diagonal matrices" $C_1,C_2,\cdots,C_d$ are each (independently) either
+invertible or almost invertible and $\varepsilon(X)$ is an invertible matrix.
+\end{thm}
+
+
+
+\begin{proof}  To keep notation simple, we give the proof here for $d=3$\, writing $m=l_{1},n=l_{2},q=$ $l_{3}$ and setting $X:=\left( 
+\begin{array}{lll}
+A & \alpha \ones_{m,n} & \beta \ones_{m,q} \\ 
+\gamma \ones_{n,m} & B & \delta \ones_{n,q} \\ 
+\nu \ones_{q,m} & \eta \ones_{q,n} & C%
+\end{array}%
+\right) $,  but
+the argument goes through for arbitrary $d$. (The $\ones$  matrices are subscripted with their dimensions for convenient reference.) First let's observe that the conditions that $A,B,C$ are each
+(independently) either invertible or almost invertible and that $\varepsilon(X)$ is
+an invertible matrix are necessary. \ The latter condition is clearly
+necessary as $\varepsilon$ here is a ring homomorphism. \ Now take $A$ for example
+and suppose $A$ is not invertible, but that $X$ is a unit. \ Then if $A$ has
+nullity $2$ or more, we can do row operations on $A$ to produce two rows of
+zeros; those operations on the first $m$ rows of $X$ will produce a matrix
+of the form $\left( 
+\begin{array}{lll}
+A_{1} & \alpha \ones_{1,n} & \beta \ones_{1,q} \\ 
+\vdots & \vdots & \vdots \\ 
+A_{m-2} & \alpha \ones_{1,n} & \beta \ones_{1,q} \\ 
+\overrightarrow{0} & r\alpha \ones_{1,n} & r\beta \ones_{1,q} \\ 
+\overrightarrow{0} & s\alpha \ones_{1,n} & s\beta \ones_{1,q}%
+\end{array}%
+\right) $\ (where we may have permuted rows of $A$) in which the last two
+rows \ are linearly dependent, a contradiction; so the nullity of $A$ is $1$%
+. \ Further, If $r_{1}A_{1}+\cdots +r_{m}A_{m}=0$ is a relation on the rows
+of $A$ with, say, $r_{m}\neq 0$, then summing all entries gives $\varepsilon_1(A)\sum
+r_{i}=0.$ Now if $\varepsilon_1(A)\neq 0$ (so $\sum r_{i}=0$) we can do elementary row
+operations to replace $A_{m}$ with $r_{1}A_{1}+\cdots +r_{m}A_{m}$; the same
+operations performed on the first $m$ rows of $X$ produce a row of $0$'s. \
+So we must have $\varepsilon_1(A)=0$, and similarly for $B,C$.
+
+\bigskip
+
+Now suppose the necessary conditions are in place.   \ Suppose a linear
+combination of the rows of $X$ with coefficients $r_{1},\cdots
+,r_{m},s_{1},\cdots ,s_{n},t_{1},\cdots ,t_{q}$ is the zero vector. \ Let $%
+r=\sum r_{i},s=\sum s_{i},t=\sum t_{i}$. \ Then considering the first $m$
+columns, then the next $n$ columns, and finally the last $q$ columns of $X$
+we have the equations
+
+\begin{eqnarray*}
+\sum r_{i}A_{i}+s\gamma J_{1,m}+t\nu J_{1,m} &=&\overrightarrow{0}%
+_{m} \\
+r\alpha J_{1,n}+\sum s_{i}B_{i}+t\eta J_{1,n} &=&\overrightarrow{0}_{n} \\
+r\beta J_{1,q}+s\delta J_{1,q}+\sum t_{i}C_{i} &=&\overrightarrow{0}_{q}
+\end{eqnarray*}
+
+Summing all entries in these vector equalities, we get%
+\begin{eqnarray*}
+r\varepsilon_1(A)+s\gamma m+t\nu m &=&0 \\
+r\alpha n+s\varepsilon_2(B)+t\eta n &=&0 \\
+r\beta q+s\delta q+t\varepsilon_3(C) &=&0
+\end{eqnarray*}
+or 
+\[
+\left( 
+\begin{array}{lll}
+r & s & t%
+\end{array}%
+\right) \varepsilon(X)=\left( 
+\begin{array}{lll}
+0 & 0 & 0%
+\end{array}%
+\right) 
+\]%
+so by invertibility of $\epsilon(X)$ we have $r=s=t=0$. \ Returning to our
+displayed set of vector equations, we now have
+
+\bigskip 
+\begin{eqnarray*}
+\sum r_{i}A_{i} &=&\overrightarrow{0}_{m} \\
+\sum s_{i}B_{i} &=&\overrightarrow{0}_{n} \\
+\sum t_{i}C_{i} &=&\overrightarrow{0}_{q}
+\end{eqnarray*}
+
+If, say $A$, is invertible, the first of these conditions forces all $r_{i}=0
+$. \ But this also must be the case if $A$ is almost invertible; this
+follows since any linear relation on the rows of $A$ must have $%
+r_{1}=r_{2}=\cdots =r_{m}$, from which $mr_{1}=\sum r_{i}=r=0$.  But having already $\varepsilon_1(A)=0$ and $\varepsilon(X)$ invertible, 
+we cannot have $m=0\in k$ (lest we have a column of zeros in $\varepsilon(X)$), and so $0=r_{1}=r_{2}=\cdots =r_{m}$. \
+Similar arguments for $B$ and $C$ imply that all coefficients $r_{1},\cdots
+,r_{m},s_{1},\cdots ,s_{n},t_{1},\cdots ,t_{q}$ must be $0$, so $X$ is in
+fact invertible. \end{proof}
+
+Applying the above theorem, we  now give a formula for the number of units in a join of  group algebras in the modular case. For any ring $R$, $R^\times$ will denote the group of units in $R$. We begin with a well-known fact.
+
+
+\begin{lem}
+ For any field $k$ of characteristic $p$ and any finite $p$-group $G$,
+ $kG$ we have $|(kG)^\times| = (|k|-1) |k|^{(|G|-1)}$.
+\end{lem}
+
+
+
+
+\begin{cor}
+Let $G_i$, for $1 \le i \le l$, be  finite $p$-groups, and let $k$ be a field of characteristic $p$. Then we have
+\[|(J_{k, G_1, \cdots G_l})^\times| = (|k|-1)^l|k|^{(\sum_i |G_i|)+l^2-2l}.\]
+\end{cor}
+
+\begin{proof}
+
+Let $G_i$, for $1 \le i \le l$, be  finite $p$-groups, and let $k$ be a field of characteristic $p$. Let $x$ be an element in this join algebra $J_{k, G_1, \cdots G_l}$ with principal diagonal entries $A_i$, $1 \le i \le l$.  Then $x$ is a unit  in $J_{k, G_1, \cdots G_l}$  if and only if $Aug(A_i) \ne 0$ for $i$ (no restrictions on the off-diagonal blocks).
+
+This gives the following.
+\begin{eqnarray*}
+ |(J_{k, G_1, \cdots, G_l})^\times| &= & \left( \prod_{i=1}^l |(kG_i)^\times| \right)  |k|^{\text{ (number of off-diagonal blocks)}} \\
+ & = & \left( \prod_{i=1}^l (|k|-1)|k|^{|G_i|-1} \right) |k|^{l^2-l}\\
+ & = & (|k|-1)^l|k|^{\sum_i |G_i|}|k|^{l^2-2l} \\
+ & = & (|k|-1)^l|k|^{(\sum_i |G_i|)+l^2-2l}
+\end{eqnarray*}
+\end{proof}
+
+These unit groups are also a source of  $2$-groups, as shown in the following result.
+
+\begin{cor}
+Let $G_i$ be  finite $p$-groups. Then $(J_{\mathbb{F}_p, G_1 \cdots, G_l})^\times$ is a $2$-group if and only if $p=2$
+\end{cor}
+\begin{proof}
+From the above formula, we have 
+\[|(J_{\mathbb{F}_p, G_1, \cdots G_l})^\times | = (p-1)^l p^{(\sum_i |G_i|)+l^2-2l}. \]
+This number is a power of $2$ if and only if $p=2$.
+\end{proof}
+
+\subsection{Structure of the unit group of $\sJ_{G_1, G_2, \ldots, G_d}(k)$ in the modular case.} 
+Let $R$ be a commutative ring such that $|G_i|=0$ in $R.$ In this section, we will investigate the structure of the unit group of $J= \sJ_{G_1, G_2, \ldots, G_d}(R).$  For simplicity, we will denote this unit group by $J^{\times}$. Recall that we have the augmentation map, which is a ring homomorphism 
+\[ \varepsilon: J_{G_1, G_2, \ldots, G_d}(R) \to M_d(R) ,\]
+sending 
+\[A=\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix} \mapsto \begin{bmatrix} 
+\epsilon_1(C_1)&k_2a_{12} &\cdots & k_da_{1d}\\
+k_1a_{21} &\epsilon_2(C_2) &\cdots & k_da_{2d}\\
+\vdots&\vdots& &\vdots\\
+k_1a_{d1}&k_2a_{d2}&\cdots& \epsilon_d(C_d)
+\end{bmatrix}.
+\]
+In fact, under the assumption that $k_i=|G_i|=0$ in $R$, we conclude that the map $\varepsilon$ lands into the subset of diagonal matrices in $M_d(R).$ Consequently, $\varepsilon$ induces a group homomorphism 
+\[ \varepsilon: J^{\times} \to (R^{\times})^d ,\]
+sending 
+\[ A \mapsto (\epsilon(C_1), \epsilon(C_2), \ldots, \epsilon(C_d)) .\] 
+We can see that this map is surjective. Let $U_1(J)$ be its kernel (we can think of an element of $U_1(J)$ as an analog of the principal in unit in the classical group ring $R[G]$). Then, we have the following short exact sequence. 
+\begin{equation} \label{eq:unit}
+1 \to U_1(J) \to J^{\times} \to (R^{\times})^d \to 1. 
+\end{equation}
+We have the following proposition. 
+\begin{prop} \label{prop:unit_decomposition}
+The short exact sequence $\ref{eq:unit}$ splits. In other words
+we have the following isomorphism 
+\[ J^{\times} \cong U_1(J) \times (R^{\times})^d .\] 
+\end{prop}
+\begin{proof}
+A section for the inclusion $U_1(J)\to J^\times$ is given by the map $\alpha:J^\times\to U_1(J)$,
+\[
+\alpha\left(\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix} \right) = \frac{1}{\prod_{i=1}^d\epsilon(C_i)}\begin{bmatrix} 
+C_1&a_{12} J_{k_1,k_2} &\cdots & a_{1d}J_{k_1,k_d}\\
+a_{21}J_{k_2,k_1} &C_2 &\cdots & a_{2d}J_{k_2,k_d}\\
+\vdots&\vdots& &\vdots\\
+a_{d1}J_{k_d,k_1}&a_{d2}J_{k_d,k_2}&\cdots& C_d
+\end{bmatrix}.
+\]
+In fact, $\alpha$ restricted to $U_1(J)$ is the identity because matrices in $U_1(J)$ have all the block-augmentations $\epsilon(C_i)=1$.
+Moreover, a tedious calculation shows that $\alpha(AB)=\alpha(A)\alpha(B)$, the key idea being that the diagonal blocks of the product $AB$ are the products of the corresponding diagonal blocks of $A$ and $B$.
+\end{proof}
+We investigate further the structure of $U_1(J).$ Let $M=R^{d^2-d}$ be the abelian group of all $d \times d$ matrices  of the form 
+
+\[ \begin{pmatrix}
+0 & a_{12} & \cdots & a_{1n} \\
+a_{21} & 0 & \cdots & a_{2n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n1} & a_{n2} & \cdots & 0 \end{pmatrix} .\] 
+Here the group structure is given by the usual matrix addition. Namely 
+\[ \begin{pmatrix}
+0 & a_{12} & \cdots & a_{1n} \\
+a_{21} & 0 & \cdots & a_{2n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n1} & a_{n2} & \cdots & 0 \end{pmatrix} + 
+\begin{pmatrix}
+0 & b_{12} & \cdots & b_{1n} \\
+b_{21} & 0 & \cdots & b_{2n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+b_{n1} & b_{n2} & \cdots & 0 \end{pmatrix}= \begin{pmatrix}
+0 & a_{12}+b_{12} & \cdots & a_{1n}+b_{1n} \\
+a_{21}+b_{21} & 0 & \cdots & a_{2n}+b_{2n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n1}+b_{n1} & a_{n2}+b_{n2} & \cdots & 0 \end{pmatrix} .\] 
+
+We have the following observation.
+\begin{prop}
+The logarithm map 
+\[ \log: U_1(J) \to M_1 ,\]
+sending
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+A_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & A_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & A_d
+\end{array}\right),
+\end{equation*}
+to 
+\[ M_1= \begin{pmatrix}
+0 & a_{12} & \cdots & a_{1n} \\
+a_{21} & 0 & \cdots & a_{2n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n1} & a_{n2} & \cdots & 0 \end{pmatrix} ,\]
+is a group homomorphism. Furthermore, $\log$ 
+has a left inverse $\psi: M \to U_1(J)$ given by sending $M_1$ to 
+\begin{equation*}
+\psi(M)=\left(\begin{array}{c|c|c|c}
+I & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & I & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & I
+\end{array}\right),
+\end{equation*}
+
+\end{prop}
+\begin{proof}
+Suppose 
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+A_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & A_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & A_d
+\end{array}\right),
+\end{equation*}
+and 
+\begin{equation*}
+B=\left(\begin{array}{c|c|c|c}
+B_1 & b_{1,2}\ones & \cdots & b_{1,d}\ones \\
+\hline
+b_{2,1}\ones & B_2 & \cdots & b_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+b_{d,1}\ones & a_{d,2}\ones & \cdots & B_d
+\end{array}\right),
+\end{equation*}
+The condition $\varepsilon_i(A_i)=\varepsilon_i(B_i)=1$ implies that 
+\begin{equation} \label{eq:multiplicationAB}
+AB=\left(\begin{array}{c|c|c|c}
+A_1B_1 & (a_{1,2}+b_{12})\ones & \cdots & (a_{1,d}+b_{1,d})\ones \\
+\hline
+(a_{2,1}+b_{2,1})\ones & A_2B_2 & \cdots & (a_{2,d}+b_{2,d}) \ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+(a_{d,1}+b_{d,1}) \ones & (a_{d,2}+b_{d,2})\ones & \cdots & A_d B_d
+\end{array}\right),
+\end{equation}
+This calculation show that $\psi$ is a group homomorphism. A similar calculation shows that $\psi$ is a group homomorphism and $\log \circ \psi$ is the identity map on $M.$
+\end{proof}
+Let $DU_1(J) = \ker(\log)$. By definition, we can see that 
+\[ DU_1(J) \cong U_1(R[G_1]) \times U_1(R[G_2]) \times \ldots \times U_1(R[G_d]) ,\]
+where $U_1(R[G_i])$ is the group of principal units in $R[G_1].$ We also have a short exact sequence 
+\begin{equation} \label{eq:unit2}
+1 \to DU_1(J) \xrightarrow{\iota} U_1(J) \to M \to 1.     
+\end{equation}
+It turns out that this exact sequence splits as well. 
+\begin{prop}  \label{prop:principal_unit_decomposition} 
+The short exact sequence \ref{eq:unit2} splits. In other words, 
+\[ U_1(J) \cong DU_1(J) \times M \cong U_1(R[G_1]) \times U_1(R[G_2]) \times \ldots \times U_1(R[G_d]) \times R^{d^2-d}.\]
+\end{prop}
+\begin{proof}
+Let us construct an inverse $\Phi$ of $\iota.$ Let $A$ be an element in $U_1(J)$. Suppose that 
+
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+A_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & A_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & A_d
+\end{array}\right),
+\end{equation*}
+We define 
+\begin{equation*}
+\Phi(A)=\left(\begin{array}{c|c|c|c}
+A_1 & 0 & \cdots & 0 \\
+\hline
+0 & A_2 & \cdots & 0 \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+0 & 0 & \cdots & A_d
+\end{array}\right),
+\end{equation*}
+It is clear that $\Phi(\tau(A))=A$ for all $A \in DU_1(J).$ We claim that $\Phi: U_1(J) \to DU_1(J)$ is a group homomorphism. In fact, let $B$ be another element in $U_1(J)$ 
+
+\begin{equation*}
+B=\left(\begin{array}{c|c|c|c}
+B_1 & b_{1,2}\ones & \cdots & b_{1,d}\ones \\
+\hline
+b_{2,1}\ones & B_2 & \cdots & b_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+b_{d,1}\ones & a_{d,2}\ones & \cdots & B_d
+\end{array}\right),
+\end{equation*}
+We have 
+\begin{equation*}
+AB=\left(\begin{array}{c|c|c|c}
+A_1B_1 & (a_{1,2}+b_{12})\ones & \cdots & (a_{1,d}+b_{1,d})\ones \\
+\hline
+(a_{2,1}+b_{2,1})\ones & A_2B_2 & \cdots & (a_{2,d}+b_{2,d}) \ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+(a_{d,1}+b_{d,1}) \ones & (a_{d,2}+b_{d,2})\ones & \cdots & A_d B_d
+\end{array}\right),
+\end{equation*}
+From this equation, we can see that 
+\[ \Phi(AB)= \Phi(A) \Phi(B) . \]
+This shows that $\Phi$ is a group homomorphism, as required. 
+
+
+\end{proof}
+In summary, we have the following theorem about the structure of $J^{\times}.$
+\begin{thm}
+\[ J^{\times} \cong (R^{\times})^d \times R^{d^2-d} \times \prod_{i=1}^d U_1(R[G_i]) .\]
+\end{thm}
+
+We remark that the the proof of Proposition \ref{prop:principal_unit_decomposition} shows a little bit more. 
+\begin{cor}
+Let $A$ be an element in $\sJ_{G_1, G_2, \ldots, G_d}$ 
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+A_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & A_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & A_d
+\end{array}\right),
+\end{equation*}
+Then $A$ is invertible iff $A_i$ is invertible for all $1 \leq i \leq d.$
+\end{cor}
+\begin{proof}
+First, let us assume that $A$ is invertible. Let $B$ be the inverse of $A$ with
+\begin{equation*}
+B=\left(\begin{array}{c|c|c|c}
+B_1 & b_{1,2}\ones & \cdots & b_{1,d}\ones \\
+\hline
+b_{2,1}\ones & B_2 & \cdots & b_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+b_{d,1}\ones & a_{d,2}\ones & \cdots & B_d
+\end{array}\right),
+\end{equation*}
+The the multiplication of $AB$ as discussed in Equation \ref{eq:multiplicationAB} shows that 
+\[ A_iB_i =1 , \forall 1 \leq i \leq d. \]
+
+This shows that $A_i$ is invertible for all $i$. Conversely, suppose that $A_i$ is invertible for all $i$. By scaling $A$ be a diagonal matrix, we can assume that $\epsilon(A_i)=1$.  Let $B_i$ be the inverse of $A_i$. We can see that $\epsilon(B_i)=1.$ Equation \ref{eq:multiplicationAB} shows that the following matrix is the inverse of $A.$
+
+\begin{equation*}
+B=\left(\begin{array}{c|c|c|c}
+B_1 & -a_{1,2}\ones & \cdots & -a_{1,d}\ones \\
+\hline
+-b_{2,1}\ones & B_2 & \cdots & -a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+-a_{d,1}\ones & -a_{d,2}\ones & \cdots & B_d
+\end{array}\right),
+\end{equation*}
+\end{proof}
+
+
+\section{ The Jacobson radical of $\mathcal{J}_{G_1, G_2, \ldots, G_d}(R)$}
+In this section, we will investigate the structure of the Jacobson radical of the joint algebra $\sJ_{G_1, G_2, \ldots, G_d}(R)$. We will present here two different approaches to this problem. For the first approach, we will utilize the results from the previous section. 
+
+
+Let $k$ be a field of characteristic $p$ (possibly 0) and let $G_{1},\cdots
+,G_{d}$ be finite groups of respective orders $n_{1},\cdots ,n_{d}$. \ We
+identify the group algebra $k[G_{i}]$ with the algebra of $G_{i}$-circulant
+matrices over $k$.
+
+Write an element $X$ in the join $\mathcal{J}_{G_1, G_2, \ldots, G_d}(k)$ 
+\[
+X=\left( 
+\begin{array}{llll}
+A_{1} & \alpha _{1,2}\ones_{n_{1},n_{2}} & \cdots  & \alpha _{1,d}\ones_{n_{1},n_{d}}
+\\ 
+\alpha _{2,1}\ones_{n_{2},n_{1}} & A_{2} & \cdots  & \alpha _{2,d}\ones_{n_{2},n_{d}}
+\\ 
+\vdots  & \vdots  & \ddots  & \vdots  \\ 
+\alpha _{d,1}\ones_{n_{d},n_{1}} & \alpha _{n,2}\ones_{n_{d},n_{2}} & \cdots  & A_{d}%
+\end{array}%
+\right) 
+\]%
+where $A_{i}$ is a $G_{i}$-circulant matrix and $\ones_{a,b}$ is an $a\times b$
+matrix all entries of which are $1$. \ Writing $\text{Rad}(R)$ for the Jacobson
+radical of a ring $R$, we then have
+
+\begin{thm}
+For $X$ as above, $X\in \text{Rad}(\mathcal{J}_{G_1, G_2, \ldots, G_d}(k))$ if
+and only if $A_{i}\in \text{Rad}(k[G_{i}]),i=1,\cdots ,d$ and $\alpha _{i,j}=0$
+whenever $p\nmid n_{i}n_{j},1\leq i\neq j\leq d$.
+\end{thm}
+
+\begin{proof}
+Without loss of generality, we reorder $G_{1},\cdots ,G_{d}$ so that $p\nmid
+n_{i}$ for $i\leq s$ but $p\mid n_{i}$ for $i>s$. \ \newline
+First suppose $X\in \text{Rad}(\mathcal{J}_{G_1, G_2, \ldots, G_d}(k))$. \ \ This
+implies that $X\in \text{Rad}(\text{Im}(\varepsilon ))$, so we should compute $%
+\text{Im}(\varepsilon )$. \ A little thought reveals that a typical element
+of $\text{Im}(\varepsilon )$ has the form $\left( 
+\begin{array}{ll}
+B & 0 \\ 
+C & D%
+\end{array}%
+\right) $ where%
+\begin{eqnarray*}
+&&B\text{ is an arbitrary }s\times s\text{ matrix} \\
+&&C\text{ is an arbitrary }(d-s)\times s\text{ matrix, and} \\
+&&D\text{ is an arbitrary diagonal }(d-s)\times (d-s)\text{ matrix}
+\end{eqnarray*}%
+The set of all matrices of this form admits a projection homomorphism $\pi $
+onto $M_{s}(k)\oplus k^{d-s}$ (taking the above matrix to $(B,%
+\overrightarrow{v})$ where $\overrightarrow{v}$ is the vector of diagonal
+entries of $D$), the Jacobson radical of which is $0$. \ It follows that $%
+X\in \text{Rad}(\mathcal{J}_{G_1, G_2, \ldots, G_d}(k))\Longrightarrow \pi \circ
+\varepsilon (X)=0$; this immediately gives us that $\varepsilon
+_{i}(A_{i})=0,1\leq i\leq d$, and $\alpha _{i,j}=0$ for $1\leq i\neq j\leq s$%
+, i.e. whenever $p\nmid n_{i}n_{j}.$ It remains to see that $A_{i}\in
+\text{Rad}(k[G_{i}])$.\newline
+We use the characterization $X\in \text{Rad}(\mathcal{J}_{G_1, G_2, \ldots,
+G_d}(k))$ if and only if $1+XY$ is a unit in $\mathcal{J}_{G_1, G_2,
+\ldots, G_d}(k)$ for all $Y\in \mathcal{J}_{G_1, G_2, \ldots, G_d}(k)$. \
+Take $Y$ of the form 
+\[
+Y=\left( 
+\begin{array}{ll}
+B &  \\ 
+0 & \ast  \\ 
+\vdots  &  \\ 
+0 & 
+\end{array}%
+\right) \text{;}
+\]%
+\ Then $1+XY$ will have an upper leftmost block $I_{d_{1}}+A_{1}B$, which
+according to our characterization of units, must be invertible or nearly
+invertible (for all $B$). \ But this matrix can never be nearly invertible
+as its augmentation is $1$ (since $\varepsilon _{1}(A_{1})$ is now known to
+be $0$); thus in fact $A_{1}\in \text{Rad}(k[G_{1}])$ by the same characterization
+of Rad. \ Similarly we see $A_{i}\in \text{Rad}(k[G_{i}])$ generally. \newline
+\ \newline
+Now suppose that the conditions $A_{i}\in \text{Rad}(k[G_{i}]),i=1,\cdots ,d$ and $%
+\alpha _{i,j}=0$ whenever $p\nmid n_{i}n_{j},1\leq i\neq j\leq d$ hold; we
+must show $X\in \text{Rad}(\mathcal{J}_{G_1, G_2, \ldots, G_d}(k))$. \ We will
+see that $1+XY$ is a unit for any $Y$. \ Set $\ $%
+\[
+Y=\left( 
+\begin{array}{llll}
+A_{1}^{\prime } & \alpha _{1,2}^{\prime }\ones_{n_{1},n_{2}} & \cdots  & \alpha
+_{1,d}^{\prime }\ones_{n_{1},n_{d}} \\ 
+\alpha _{2,1}^{\prime }\ones_{n_{2},n_{1}} & A_{2}^{\prime } & \cdots  & \alpha
+_{2,d}^{\prime }\ones_{n_{2},n_{d}} \\ 
+\vdots  & \vdots  & \ddots  & \vdots  \\ 
+\alpha _{d,1}^{\prime }\ones_{n_{d},n_{1}} & \alpha _{n,2}^{\prime
+}\ones_{n_{d},n_{2}} & \cdots  & A_{d}^{\prime }%
+\end{array}%
+\right) 
+\]%
+The diagonal blocks in $1+XY$ have the form $I+A_{i}A_{i}^{\prime }$ if $%
+i\leq s$ or $I+A_{i}A_{i}^{\prime }+wJ_{n_{i},n_{i}}$ if $i>s$. \ Since $%
+A_{i}\in \text{Rad}(k[G_{i}]),$ $I+A_{i}A_{i}^{\prime }$ is invertible; adding the
+(commuting) nilpotent matrix $wJ_{d_{i},d_{i}}\ $if $i>s$ will not change
+that. \ Thus the diagonal blocks are all invertible. \ It will follow from
+our characterization of units that if in addition $\epsilon (1+XY)$ is an
+invertible matrix, then $1+XY$ is a unit. \ We know that $\varepsilon (1+XY)$
+has the form $\left( 
+\begin{array}{ll}
+B & 0 \\ 
+C & D%
+\end{array}%
+\right) $ as above, and that all entries on the main diagonal are nonzero. \
+(For of course the condition $A_{i}\in \text{Rad}(k[G_{i}])$ forces $\varepsilon
+_{i}(A_{i})=0$.) \ Now consider the $i,j$ block off the diagonal in $1+XY$
+where $i,j\leq s$. \ We'll see that it is actually a zero matrix. \ This
+block is a sum of terms (i) $\alpha _{ik}\alpha _{kj}^{\prime }n_{k}J_{ij}\
+(i\neq k\neq j)$, (ii) $\varepsilon _{i}(A_{ii})\alpha _{ij}^{\prime }J_{ij}$%
+, and (iii) $\alpha _{ij}\varepsilon _{j}(A_{jj}^{\prime })J_{ij}$. \ Terms
+of type (i) are all zero since\ either $\alpha _{ik}=0\ (k\leq s)$ or $%
+n_{k}=0\ (k>s)$, the term (ii) is zero since $\varepsilon _{i}(A_{ii})=0$,
+and finally term (iii) is zero since $\alpha _{ij}=0$. \ Thus we see, taking 
+$\varepsilon (1+XY)$, that the matrix $B$ is diagonal, and the entire matrix 
+$\varepsilon (1+XY)$ is in particular lower triangular with nonzero diagonal
+entries. \ Thus it is invertible, and the criteria for invertibility of $1+XY
+$ are met.
+\end{proof}
+
+
+\begin{cor}
+Let $G_1$ and $G_2$ be two $p$-groups and let $k$ be a finite field of characteristic $p$. Then we have 
+\[ | Rad(J_{G_1, G_2, k}) | = |k|^{|G_1| +|G_2|}. \]
+\end{cor}
+
+\begin{proof}
+An element 
+\[\begin{bmatrix}
+A & \alpha J_{m, n} \\
+\beta J_{n, m} & B
+\end{bmatrix}\]
+in $J_{G_1, G_2, k}$ belongs to the Jacobson radical if and only if $aug(A) = aug(B)= 0$ (with no restriction on  $\alpha$ or $\beta$). $aug(A) = 0$ if and only if the row sum of $A$ is zero.  This means we have $|G_1|-1$ degrees of freedom for the entries in $A$.  This shows that $A$ is $|k|^{|G_1|-1}$.  Similarly, we have $|k|^{|G_2|-1}$ for $B$. Since there is no  restrictions on $\alpha$ or $\beta$, we have a total of 
+\[|k|^{|G_1|-1} |k|^{|G_2|-1} |k| |k| = |k|^{|G_1| +|G_2|}\]
+elements in the Jacobson radical.
+\end{proof}
+
+{\color{red} 
+\begin{cor}Corollary: $J_{G_1, G_2, \ldots, G_d}(k)$ is semisimple iff $|G_i|$ are invertible in $k$. 
+\end{cor}}
+We discuss another approach to this problem, which may be of independent interest. Let $G_1, G_2, \ldots, G_d$ be as before. We will work with a general semisimple ring $R$ that satisfies the following Hypothesis. 
+\begin{Hypothesis} For each $1 \leq i \leq d$, either $|G_i|=0$ in $R$ or $|G_i|$ is invertible. 
+\end{Hypothesis}
+In particular, a field would automatically satisfy this condition.  If $|G_i|$ is invertible in $R$ for all $1 \leq i \leq d$ then by Theorem \ref{thm:maschke}, the joint algebra $J_{G_1, G_2, \ldots, G_d}(R)$ is semisimple so its Jacobson radical is $0$. Therefore, we can assume that, up to ordering, there exists a (unique) positive integer $r$ such that 
+
+\begin{itemize}
+    \item $|G_i|$ is invertible in $R$ for $1 \leq i \leq r$. 
+    \item $|G_i|=0$ in $R$ for $r < i \leq d$.
+\end{itemize}
+Let us first explain our strategy of this second approach. We will find an ideal $\Delta$ -as small as possible-such that the quotient ring $J_{G_1, G_2, \ldots, G_d}(R)/\Delta$ is semisimple. This, in turn, can be done by constructing a surjective ring homomorphism from $J_{G_1, G_2, \ldots, G_d}(R)$ to another semisimplea ring. Our strategy is based on the following observation. 
+\begin{prop} (\cite[Section 4.3, Lemma b]{pierce1982associative})
+Let $R$ be a ring and $I$ a two-sided ideal of $R$ such that $R/I$ is semisimple. Let $J(R)$ be the Jacobson radical of $R$. Then $J(R) \subset I.$
+\end{prop}
+First, we discuss an elementary lemma. 
+\begin{lem}
+Let $G$ be a finite group and $R$ as above. Let 
+\[ e_{G}=\sum_{g \in G} g.\] 
+Then $e_G$ is an element of the Jacobson radical of $k[G]$ iff $|G|=0$ in $G.$
+\end{lem}
+\begin{proof}
+If $|G|$ is invertible in $R$ then by Maschke theorem, $R[G]$ is semisimple so the Jacobson radical of $R[G]$ is $0$. Therefore, $e_G$ cannot be an element of the Jacobson radical of $R[G].$ Conversely, assuming that $|G|=0$ in $R.$ We claim that $1+e_G y$ is a unit in $R[G]$ for all $y \in R[G].$  We have 
+\[ e_G y =\varepsilon(y) e_G, \]
+where $\varepsilon(y)$ is the augmentation of $y$. In particular, we have 
+\[ e_G^2= |G| e_G=0 .\] 
+Therefore $(e_Gy)^2=\varepsilon(y)^2 e_G^2=0.$ This shows that $1+e_G y$ is invertible. In fact, its inverse is exactly $1-e_Gy.$
+This shows that $e_G$ belongs to the Jacobson radical of $R[G].$
+\end{proof}
+For each $1 \leq i \leq d$, let $I_i$ be the Jacobson radical of the group ring $R[G_i].$ Note that by Maschke's theorem, for $1 \leq i \leq r$, $R[G_i]$ is semisimple so $I_i=0$. Note that under the assumption that $R$ is semisimple, $R[G_i]/I_i$ is semisimple as well. 
+
+
+Let us consider a generic element of $\sJ_{G_1, G_2, \ldots, G_d}(R)$ 
+
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right),
+\end{equation*}
+We can further partition $A$ into the following blocks 
+\[ A =\begin{pmatrix} A_1 & B_1 \\ B_2 & A_2 \end{pmatrix} .\] 
+where $A_1$ is the union of the upper $r$- blocks, $A_2$ is the union of the lower $d-r$, $B_1$ (respectively $B_2$) is the union of the upper right (respectively lower left) blocks. Concretely, we have 
+\begin{equation*}
+A_1=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,r}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,r}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{r,1}\ones & a_{r,2}\ones & \cdots & C_r
+\end{array}\right),
+\end{equation*}
+\begin{equation*}
+A_2=\left(\begin{array}{c|c|c|c}
+C_{r+1} & a_{r+1,2}\ones & \cdots & a_{r+1,d}\ones \\
+\hline
+a_{r+2,r+1}\ones & C_2 & \cdots & a_{r+2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,r+1}\ones & a_{r,2}\ones & \cdots & C_d
+\end{array}\right),
+\end{equation*}
+Similarly for $B_1, B_2$. Note that we can consider $A_1$ (respectively $A_2$) as an element of $J_{G_1, \ldots, G_r}(R)$ (respectively $J_{G_{r+1}, \ldots, G_d}(R)$.) Suppose $X$ is another element in $J_{G_1, \ldots, G_d}$ of the form 
+
+\begin{equation*}
+X=\left(\begin{array}{c|c|c|c}
+D_1 & x_{1,2}\ones & \cdots & x_{1,d}\ones \\
+\hline
+x_{2,1}\ones & D_2 & \cdots & x_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+x_{d,1}\ones & x_{d,2}\ones & \cdots & D_d
+\end{array}\right),
+\end{equation*}
+Again, we can write $X$ in the following form
+
+\[ X =\begin{pmatrix} X_1 & Y_1 \\ X_2 & Y_2 \end{pmatrix} ,\]
+then we have 
+\[ AX= \begin{pmatrix} A_1X_1+B_1 X_2 & A_1 Y_1 + B_1 Y_2 \\ B_2 X_1+A_2 X_2 & B_2 Y_1+ A_2 X_2 \end{pmatrix} .\] 
+We note that $B_1 Y_2=0$ and $B_2 Y_1$ is of the form $\alpha_{r+1} \ones_{|G_{r+1}|} \oplus \ldots \alpha_{d} \oplus \ones_{|G_d|}$. 
+
+\begin{prop}
+Let $\psi$ be the map 
+\[ \psi: J_{G_1, G_2, \ldots, G_d}(R) \to J_{G_1, \ldots, G_r}(R) \times \prod_{r+1 \leq i \leq d} R[G_i]/I_i ,\]
+sending 
+
+\[ A \mapsto (A_1, \overline{C_{r+1}}, \ldots, \overline{C_{d}}) .\] 
+Then $\psi$ is a surjective ring homomorphism. 
+\end{prop}
+
+\begin{proof}
+Let $A,X \in J_{G_1, \ldots, G_d}(R)$ as before. We need to show that
+\[ \psi(A+X)=\psi(A)+\psi(X), \]
+and 
+\[ \psi(AX)=\psi(A) \psi(X).\] 
+The first identity is obvious. Let us focus on the second identity. By the above calculations and the fact that $e_{|G_i|} \in I_i$ for $r+1 \leq i \leq d$, we see that 
+\[ \psi(AX)=(X_1Y_1, \overline{C_{r+1} D_{r+1}}, \ldots, \overline{C_{d} D_d}) =\psi(A) \psi(X) .\] 
+We conclude that $\psi$ is a ring homomorphism. It is surjective because for an element $(A_1, \overline{C_{r+1}}, \ldots, \overline{C_{d}}) \in J_{G_1, \ldots, G_r} \times \prod_{r+1 \leq i \leq d} R[G_i]/I_i$, we have  
+\[ \psi(A)= (A_1, \overline{C_{r+1}}, \ldots, \overline{C_{d}}), \]
+where 
+\[ A= A_1 \oplus C_{r+1} \oplus \ldots \oplus C_d .\] 
+\end{proof}
+Let $\Delta$ be the kernel of this ring homomorphism. Then we have 
+\[ J_{G_1, \ldots, G_d}(R)/ \Delta \cong J_{G_1, \ldots, G_r} \times \prod_{i=r+1}^d k[G_i]/I_i ,\] 
+By the generalized Maschke's theorem, $J_{G_1, \ldots, G_d}(R) \times \prod_{i=r+1}^d k[G_i]/I_i$ is a semisimple ring, we conclude that  $I \subset \Delta$, where $I$ is the Jacobson radical of $J_{G_1, G_2, \ldots, G_d}.$ We will now prove the other direction, namely $\Delta \subset I.$ To do so, we use the following lemma. 
+\begin{lem} (see \cite[Section 4.4]{pierce1982associative})
+Let $A$ be a left artinian algebra. Suppose $M$ is a left ideal of $A$. The following conditions are equivalent 
+\begin{enumerate}
+    \item $M \subset J(A)$ where $J(A)$ is the Jacobson radical of $A$. 
+    \item There is a natural number $k$ such that $M^k=0.$
+    \item All elements of $M$ are nilpotent. 
+\end{enumerate}
+\end{lem}
+We will use the third condition to shows that $\Delta \subset I$. Namely, we will show that all elements of $\Delta$ are nilpotent. Let $A \in \Delta$. Then as before, $A$ has the following form 
+\[ A =\begin{pmatrix} 0 & B_1 \\ B_2 & A_2 \end{pmatrix} .\] 
+where $B_1, B_2, A_2$ are as before. Furthermore, if we write $A_2$ in the form 
+\begin{equation*}
+A_2=\left(\begin{array}{c|c|c|c}
+C_{r+1} & a_{r+1,2}\ones & \cdots & a_{r+1,d}\ones \\
+\hline
+a_{r+2,r+1}\ones & C_2 & \cdots & a_{r+2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,r+1}\ones & a_{r,2}\ones & \cdots & C_d
+\end{array}\right),
+\end{equation*}
+then we must have $C_i \in I_i$ for $r+1 \leq i \leq d.$ In particular, $C_i$ are all nipotent and $\varepsilon_i(C_i)=0.$ Direct calculations show that $B_1A_2=A_2B_2=0$ and hence $A^2$ is of the following form 
+\[ A =\begin{pmatrix} 0 & 0 \\ 0 & A'_2 \end{pmatrix} ,\]
+where 
+\[ A'_2=C_{r+1}^2 \oplus \ldots \oplus C_{d}^2 .\] 
+Since $C_i$ are all nilpotent, we conclude that $A^2$, and hence $A$ is nilpotent as well. This shows that $\Delta \subset I.$ 
+
+In summary, we have 
+\begin{thm} \label{thm:jacobson}
+The Jacobson radical of $J_{G_1, G_2, \ldots, G_d}(R)$ is the kernel of the surjective ring homomorphism 
+\[ \psi: J_{G_1, G_2, \ldots, G_d}(R) \to J_{G_1, \ldots, G_r}(R) \times \prod_{r+1 \leq i \leq d} k[G_i]/I_i .\]
+Concretely, let 
+
+\begin{equation*}
+A=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right).
+\end{equation*}
+Then $A$ belongs to the Jacobson radical of $J_{G_1, G_2, \ldots, G_d}$ iff the following conditions are satisfied 
+\begin{enumerate}
+    \item $A_i=0, 1 \leq i \leq r.$ 
+    \item $a_{ij}=0, 1 \leq i,j \leq r.$ 
+    \item $A_i \in I_i, r+1 \leq i \leq d.$
+\end{enumerate}
+\end{thm}
+
+\begin{cor}
+Suppose that $R=k$ is an algebraically closed field. Let $G_1, G_2, \ldots, G_d$ be as before. Then, the number of irreducible modules over $\sJ_{G_1, G_2, \ldots, G_d}(k)$ is 
+\[ \sum_{i=1}^{d} c_p(G)- r +1 .\] 
+where $c_p(G_i)$ is the number of $p$-regular conjugacy classes of $G_i$.
+\end{cor}
+
+\begin{proof}
+For a ring $R$, we define the semisimplication of $R$ as 
+\[ R^{\se} = R/\Rad(R) .\] 
+A simple module over $R$ is of the form $R/\mathfrak{m}$ where $\mathfrak{m}$ is a left maximal ideal in $R$. Since $\Rad(R)$ is the intersection of all left maximal ideals in $R$, we conclude that that there is a bijection between the set of simple modules over $R$ and the set of simple modules over $R^{\se}.$  From this observation and the isomorphism discussed in Theorem \ref{thm:jacobson}
+we conclude that the number of irreducible modules over $\sJ_{G_1, G_2, \ldots, G_d}(k)$ is the same as the number of irreducible modules over $J_{G_1, G_2, \ldots, G_d}(k) \times \prod_{i=r+1}^d k[G_i]/\Rad(k[G_i])$. By \ref{prop:number_of_irr_modules}, we know that the number of irreducible modules over $J_{G_1, G_2, \ldots, G_d}(k)$ is exactly 
+\[ \sum_{i=1}^r c(G_i) -r+1 = \sum_{i=1}^r c_p(G_i)-r+1 .\] 
+Additionally, the number of irreducible modules over $k[G_i]/Rad(k[G_i])$ is the same as the number of irreducible modules over $k[G_i]$ which is known to be $c_p(G_i)$ (see \cite{reiner1964number}). We conclude that the number of irreducible modules over $\sJ_{G_1, G_2, \ldots, G_d}(k)$ is exactly 
+\[ \sum_{i=1}^d c_p(G_i)-r+1 .\]
+
+\end{proof}
+
+\section{The joint algebra $\sJ_{G_1, G_2, \ldots, G_d}(k)$ and Frobenius algebras}
+
+An important class of algebras is Frobenius algebra which we now recall. 
+\begin{defn} (CITE)
+Let $A$ be a finite dimensional $k$-algebra. Then $A$ is called a Frobenius algebra if one of the following equivalent conditions holds 
+\begin{enumerate}
+    \item There exists a non-degenerate bilinear form $\sigma: A \times A \to k$ such that $\sigma(ab,c)=\sigma(a,bc)$ for all $a,b, c \in A.$ Here non-degenrate means that if $\sigma(x,y)=0$ for all $x$ then $y=0.$ We call $\sigma$ the Frobenius form of $A.$
+    \item There exists a linear map $\lambda: A \to k$ such that the kernel of $\lambda$ contains no nonzero left ideal of $A.$
+\end{enumerate}
+\end{defn}
+
+It is known that if $k$ is a field and $G$ is a finite group then the group algebra $k[G]$ is always a Frobenius algebra regardless of the characteristic of the field $k$. In this section, we answer completely the following question: when is the joint algebra $\sJ_{G_1, G_2, \ldots, G_d}(k)$ a Frobenius algebra? 
+\begin{thm} \label{thm:frob}
+Suppose $G_1, G_2, \ldots, G_d$ are groups over a field $k$ of characteristic $p$ with $d \geq 2$ Then, the joint algebra $J_{G_1, G_2, \ldots, G_d}(k)$ is a Frobenius algebra if and only if $|G_i|$ is invertible in $k$ for all $1 \leq i \leq d.$
+\end{thm}
+We remark that if $|G_i|$ are invertible in $k$ then by Theorem \ref{thm:decomposition}, $\sJ_{G_1, G_2, \ldots, G_d}(k)$ is a Frobenius algebra. Therefore, it is sufficient to consider the case at least one of  $|G_i|$ is $0$ in $k$. Without loss of generality, we can assume that $|G_i|=0$ in $k.$ Our key observation is that there are many left ideals in $\sJ_{G_1, G_2, \ldots, G_d}(k).$
+
+
+Let $(a_1,a_2, \ldots, a_d) \in k^d$. We define
+\[ v_{a_1, a_2, \ldots, a_d}= 
+\left(\begin{array}{c|c|c|c}
+a_1 J_{n_1, n_1} & a_{2} J_{n_1, n_2} & \cdots & a_{d}J_{n_1, n_d} \\
+\hline
+0  & 0 & \cdots & 0 \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+0 & 0  & \cdots &0 
+\end{array}\right) .\] 
+ 
+Let $I_{a_1,a_2, \ldots, a_d}$ be the vector space generated by $v_{a_1,a_2, a_3, \ldots, a_d}$. Then 
+\begin{prop} \label{prop:7.3}
+$I_{a_1,a_2, \ldots, a_d}$ is a left ideal of $J_{G_1, G_2, \ldots, G_d}(k)$. If $(a_1,a_2, \ldots, a_d) \neq (0,0, \ldots, 0)$ then $I_{a_1,a_2, \ldots, a_d}$ is not $0$.
+\end{prop}
+\begin{proof}
+Let 
+\[ A=\left(\begin{array}{c|c|c|c}
+C_1 & a_{1,2}\ones & \cdots & a_{1,d}\ones \\
+\hline
+a_{2,1}\ones & C_2 & \cdots & a_{2,d}\ones \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+a_{d,1}\ones & a_{d,2}\ones & \cdots & C_d
+\end{array}\right) .\] 
+Then 
+\[ A v_{a_1, a_2, \ldots, a_d} = \varepsilon_1(C_1) v_{a_1, a_2, \ldots, a_d} \in I_{a_1, a_2, \ldots, a_d}.\] 
+\end{proof}
+
+\begin{prop} \label{prop:7:4}
+Let $\lambda: J_{G_1, G_2, \ldots, G_d}(k) \to k$ be a linear functional. Then there exists $(a_1, \ldots, a_d) \neq (0, 0, \ldots, 0)$ such that $\lambda(v_{a_1, a_2, \ldots, a_d})=0.$ Consequently $\lambda(I_{a_1, a_2, \ldots, a_d})=0.$
+\end{prop}
+
+\begin{proof}
+Let $V$ be the $d$-dimensional vector space 
+\[ V = \left\{ \left(\begin{array}{c|c|c|c}
+x_1 J_{n_1, n_1} & x_{2} J_{n_1, n_2} & \cdots & x_{d}J_{n_1, n_d} \\
+\hline
+0  & 0 & \cdots & 0 \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+0 & 0  & \cdots &0 
+\end{array}\right)| (x_1, x_2, \ldots, x_d) \in k^d  \right \} .\] 
+
+The restriction of $\lambda$ to $V$ induces a linear functional map 
+\[ \lambda: V \to k .\] 
+If $d>1$, this map must have a non-trivial kernel. So, there must exist $(a_1, a_2, \ldots, a_d) \neq 0$ such that $\lambda(v_{a_1, a_2, \ldots, a_d})=0.$
+\end{proof}
+We see that theorem \ref{thm:frob} is then a consequence Proposition \ref{prop:7.3} and Proposition \ref{prop:7:4}. Here are two direct corollaries of this theorem. 
+\begin{cor}
+Assume that $d \geq 2$ and $p| |G_1|$.  In particular, $\sJ_{G_1, G_2, \ldots, G_d}(k)$ cannot be the group algebra of any finite group $G.$
+\end{cor}
+
+In Example \ref{ex:join}, we discuss the possibility of writing a group algebra as a joint algebra. It turns that this is not possible in the modular case. 
+\begin{cor}
+Let $G$ be a group such that $|G|=0$ in k. Then $k[G]$ is not isomorphic to $J_{G_1, G_2, \ldots, G_d}(k)$ for some $d \geq 2.$
+\end{cor}
+\begin{proof}
+Assume to the contrary that $k[G]=J_{G_1, G_2, \ldots, G_d}(k)$ for some $d \geq 2.$ Since $k[G]$ is a Frobenius algebra, $J_{G_1, G_2, \ldots, G_d}(k)$ is a Frobenius algebra as well. By the above corollary, $|G_i|$ must be invertible in $k$ for $1 \leq i \leq d.$ By Theorem \ref{thm:maschke}, this implies that $J_{G_1, G_2, \ldots, G_d}(k)$ is semisimple. However, since $|G|=0$ in $k$, $k[G]$ is not semisimple. This leads to a constradiction. 
+
+\end{proof}
+
+
+
+
+
+
+\section{Artin-Wedderburn decomposition/Generalized Circulant Diagonalization Theorem}
+In this section, we describe an explicit isomorphism mentioned in Example \ref{ex:cyclic}. Through out this section, we will assume that $G_i = \Z/k_i$ is a cyclic group of order $k_i$. For simplicity, we will use the notation  $J_{k_1, k_2, \ldots, k_d}(\C)$ for $J_{G_1, G_2, \ldots, G_d}(\C).$
+
+We recall that the $n$-dimensional DFT is the linear map $\C^n\to \C^n$ represented in matrix form by the \textit{DFT matrix}
+\[
+F_n= \begin{pmatrix}
+1&1&1&\cdots &1 \\
+1&\omega&\omega^2&\cdots&\omega^{n-1} \\
+1&\omega^2&\omega^4&\cdots&\omega^{2(n-1)}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+1&\omega^{n-1}&\omega^{2(n-1)}&\cdots&\omega^{(n-1)(n-1)}
+\end{pmatrix},
+\]
+where $\omega$ is a primitive $n$-th root of unity. The matrix $F_n$ is invertible, with inverse $F_n^{-1}=1/n F_n^*$ (where $M^*$ denotes the conjugate transpose of the matrix $M$).
+Moreover, the Circulant Diagonalization Theorem  states that all the circulant matrices of size $n$ can be simultaneously diagonalized by conjugation with $F_n$ (see \cite[Theorem 3.2.1]{davis2013circulant}).
+Note that, although the DFT matrix and the Circulant Diagonalization Theorem are usually introduced over the complex numbers, they make sense over any ring $R$ containing a primitive $n$-th root of unity and in which $n=n\cdot 1_R$ is invertible.
+
+The Generalized Circulant Diagonalization Theorem of \cite{CM1} can be thought of as saying that, for any $d,k_1,\dots,k_d\in\N$, it is possible to turn all matrices of $J_{k_1,\dots,k_d}(\C)$ into an almost diagonal form by conjugation with a block-diagonal matrix whose diagonal blocks are DFT matrices of suitable size.
+\begin{defn}
+For $d,k_1,\dots,k_d\in\N$, the \textit{join-DFT} matrix of sizes $k_1,\dots,k_d$ is the block-diagonal matrix
+\[
+F_{k_1,\dots,k_d}=\left(\begin{array}{c|c|c|c}
+F_{k_1} & \mathbf{0} & \dots & \mathbf{0}\\
+\hline
+\mathbf{0} & F_{k_2} & \dots & \mathbf{0}\\
+\hline
+\vdots & \vdots & \ddots & \vdots\\
+\hline
+\mathbf{0} & \mathbf{0} & \dots & F_{k_d}
+\end{array}
+\right).
+\]
+To keep the notation cleaner, we will also use the shorthand $F_{\mathbf{k}}=F_{k_1,\dots,k_d}$.
+\end{defn}
+
+\begin{thm}\label{thm:Artin-Wedderburn}
+Let $d,k_1,\dots,k_d\in\N$. If $R$ contains the inverses of $k_1,\dots,k_d$ and the primitive roots of unity of orders $k_1,\dots,k_d$, then the algebra $J_{k_1,\dots,k_d}(R)$ is isomorphic to \[\underbrace{R\times\dots\times R}_{\text{$k_1+\dots+k_d-d$}}\times\ M_d(R).\] The isomorphism is given by conjugation with the product of the join-DFT matrix $F_{k_1,\dots,k_d}$ and a suitable permutation matrix.
+\end{thm}
+\begin{proof}
+The matrix $F_{\mathbf{k}}=F_{k_1,\dots,k_d}$ contains exactly $d$ columns whose nonzero entries are all equal. With our conventions, these columns are the first, the $(k_1+1)$-th, the $(k_1+k_2+1)$-th, ..., the $(k_1+\dots+k_{d-1}+1)$-th, that is, the columns containing the first column of each diagonal block. Let us refer to these as to the \textit{bad} columns, and to the others as the \textit{good} ones.
+By \cite[Theorem 1]{CM1}, the good columns of $F_\mathbf{k}$ are common eigenvectors of all matrices in $J_{k_1,\dots,k_d}(R)$.
+Let $P$ be the permutation matrix which brings the bad columns at the end of $F_\mathbf{k}$, otherwise keeping the relative order of both the good columns and the bad columns. Then, for all $A\in J_{k_1,\dots,k_d}(R)$ of the form \eqref{eq:join circulant matrix}, the matrix $P^{-1}F_\mathbf{k}^{-1}AF_\mathbf{k}P$ has the shape
+\[D_A\oplus \overline{A}=
+\left(\begin{array}{c|c}
+    D_A & \mathbf{0} \\
+    \hline
+    \mathbf{0}  & \overline{A}
+\end{array}\right),
+\]
+where $D_A$ is the diagonal matrix having the \textit{circulant} eigenvalues of $A$ (in the sense of \cite[Definition 1]{CM1}) on the diagonal, and
+\[
+\overline{A}=
+\begin{pmatrix}
+\Sigma C_1 & k_2a_{12} & \dots & k_da_{1d}\\
+k_1a_{21} & \Sigma C_2 & \dots & k_da_{2d}\\
+\vdots & \vdots & \ddots & \vdots\\
+k_1a_{d1} & k_2a_{d2} & \dots & \Sigma C_d
+\end{pmatrix}.
+\]
+Let us define $n=k_1+\dots+k_d$ and consider the $R$-algebra homomorphism
+\begin{equation}\label{eq:Artin-Wedderburn decomp}
+    \begin{array}{c}
+    \Phi:J_{k_1,\dots,k_d}(R)\to R^{n-d}\times\ M_d(R),\\\\
+    \Phi: A\mapsto P^{-1}F_{\mathbf{k}}\,\! ^{-1}AF_\mathbf{k}P=D_A\oplus\overline{A}\mapsto \left((D_A)_{11},(D_A)_{22},\dots,(D_A)_{n-d,n-d},\overline{A}\right).
+    \end{array}
+\end{equation}
+
+The injectivity of $\Phi$ follows from three properties: the invertibility of $k_1,\dots,k_d$, forcing the implication 
+$k_ia_{ji}=0\Rightarrow a_{ij}=0$; the fact that diagonal entries of $D_A\oplus\overline{A}$ are precisely the eigenvalues of the circulant blocks of $A$; and the fact that the circulant blocks of $A$ are diagonalizable, thanks to the presence of the necessary roots of unity in $R$.
+
+As regards the surjectivity of $\Phi$, for all $(r_1,\dots,r_{n-d},M)\in R^{n-d}\times M_d(R)$, the matrices
+\[\begin{array}{l}
+     C_1=F_\mathbf{k}\cdot diag(M_{11},r_{1},\dots,r_{k_1-1})\cdot F_\mathbf{k}^{-1} \\
+     C_2=F_\mathbf{k}\cdot diag(M_{22},r_{k_1},\dots,r_{k_1+k_2-2})\cdot F_\mathbf{k}^{-1} \\ 
+     \vdots \\
+     C_d=F_\mathbf{k}\cdot diag(M_{dd},r_{k_1+\dots+k_{d-1}-d-2},\dots,r_{n-d})\cdot F_\mathbf{k}^{-1}
+\end{array}
+\]
+are circulant and can be assembled into the join
+\[
+\left(
+\begin{array}{c|c|c|c}
+   C_1 & (M_{12}/k_2)\ones & \dots & (M_{1d}/k_d)\ones \\
+   \hline
+   (M_{21}/k_1)\ones & C_2 & \dots & (M_{2d}/k_d)\ones \\
+   \hline
+   \vdots & \vdots & \ddots & \vdots \\
+   \hline
+   (M_{d1}/k_1)\ones & (M_{d2}/k_2)\ones & \dots & C_d
+\end{array}
+\right),
+\]
+which is a preimage of $(r_1,\dots,r_{n-d},M)$.
+\end{proof}
+\begin{rem}
+In the literature there are different conventions for the definition of DFT matrices. Many authors prefer to define the DFT matrix as 
+\[\widetilde{F}_n=\frac{1}{\sqrt{n}}F_n.\]
+The normalization factor $1/\sqrt{n}$ has the merit of making the DFT a unitary operator. The convention used here has the advantage of requiring less strict assumptions on the ring $R$ in Theorem \ref{thm:Artin-Wedderburn}, namely, $R$ need not contain the square roots of $k_1,\dots,k_d$ (and their inverses). We note that the use of different forms of the DFT matrices, provided they are defined over $R$, does not substantially modify the theorem, as the only effect would be to substitute the matrix $\overline{A}$ with a similar matrix.
+
+However, if $R$ happens to be commutative and to contain the square roots of $k_1,\dots,k_d$, the adoption of $\widetilde{F}_n$ as DFT matrix, and the corresponding choice of
+\[
+\widetilde{F}_{k_1,\dots,k_d}=\left(\begin{array}{c|c|c|c}
+\widetilde{F_{k}}_1 & \mathbf{0} & \dots & \mathbf{0}\\
+\hline
+\mathbf{0} & \widetilde{F_{k}}_2 & \dots & \mathbf{0}\\
+\hline
+\vdots & \vdots & \ddots & \vdots\\
+\hline
+\mathbf{0} & \mathbf{0} & \dots & \widetilde{F_{k}}_d
+\end{array}
+\right)
+\]
+as a join-DFT matrix have an interesting graph-theoretic consequence. In fact, the adjacency matrix of a graph join of circulant (unweighted) graphs is a join of circulant matrices $A$ as in \eqref{eq:join circulant matrix}, but with all $a_{ij}=1$. Now, the conjugation with $\widetilde{F}_{k_1,\dots,k_d}P$ produces the block-diagonal matrix $D_A\oplus \widetilde{A}$, with $D_A$ as in the theorem, but
+\[
+\widetilde{A}=\begin{pmatrix}
+\Sigma C_1 & \sqrt{k_1k_2} & \dots & \sqrt{k_1k_d}\\
+\sqrt{k_2k_1} & \Sigma C_2 & \dots & \sqrt{k_2k_d}\\
+\vdots & \vdots & \ddots & \vdots\\
+\sqrt{k_dk_1} & \sqrt{k_dk_2} & \dots & \Sigma C_d
+\end{pmatrix},
+\]
+ is symmetric. Consequently, the adjacency matrix of any graph join of circulant (unweighted) graphs is diagonalizable. Of course, the same is true for more general matrices $A$ as in \eqref{eq:join circulant matrix} having $a_{ij}=a_{ji}$.
+\end{rem}
+
+\begin{cor}
+In the same hypotheses of Theorem \ref{thm:Artin-Wedderburn}, the map $\overline{\Phi}:J_{k_1,\dots,k_d}(R)\to M_d(R)$, $\overline{\Phi}:A\mapsto\overline{A}$ is an $R$-algebra epimorphism.
+\end{cor}
+
+%bibliography
+\bibliographystyle{alpha}
+\bibliography{CM2.bib}
+\end{document}
+
+
+
+\begin{prop}
+For any $d,k_1,\dots,k_d\in\N$, the centre of $J_{k_1,\dots,k_d}(R)$ is made of the matrices \eqref{eq:join circulant matrix} such that all $a_{i,j}=0$ and all $C_i$ have the same row sum: $\Sigma C_{1}:=\sum_j(C_1)_{1,j}=\dots=\Sigma C_{d}:=\sum_j(C_d)_{1,j}$.
+\end{prop}
+\begin{proof}
+Referring to the notation of \eqref{eq:product}, we see that the equality $A\cdot B = B\cdot A$ is equivalent to the following system.
+\[
+\left\{\begin{array}{l}\displaystyle
+C_1D_1+\sum_{j=2}^dk_ja_{1,j}b_{j,1}\ones = D_1C_1+\sum_{j=2}^dk_ja_{j,1}b_{1,j}\ones
+\\
+\displaystyle C_2D_2+\sum_{j=1,j\neq 2}^dk_ja_{2,j}b_{j,2}\ones = D_2C_2+\sum_{j=1,j\neq 2}^dk_ja_{j,2}b_{2,j}\ones\\
+\vdots
+\\
+\displaystyle
+C_dD_d+\sum_{j=1}^{d-1}k_ja_{d,j}b_{j,d}\ones = D_dC_d+\sum_{j=1}^{d-1}k_ja_{j,d}b_{d,j}\ones
+\\
+\\
+\text{+ conditions for non-diagonal blocks}
+\end{array}
+\right.
+\]
+Since circulant matrices of the same dimension always commute \cite{davis}, the commutativity conditions for diagonal blocks reduce to
+\begin{equation}
+    \label{eq:centre 1}
+\sum_{j\neq i}k_ja_{i,j}b_{j,i}=\sum_{j\neq i}k_ja_{j,i}b_{i,j} \qquad i=1,\dots,d.
+\end{equation}
+
+Suppose that the matrix $A$ defined as in \eqref{eq:join circulant matrix} is in the centre of $J_{k_1,\dots,k_d}(R)$. Then the relations \eqref{eq:centre 1} have to hold for all $B\in J_{k_1,\dots,k_d}(R)$, that is, for all $b_{i,j}\in R$. For any fixed couple of indices $(i,j)$, the choice 
+\[b_{i,j}=1\mbox{ and }b_{x,y}=0\mbox{ for all other pairs }(x,y)\neq(i,j)\]
+forces $a_{i,j}=0$.
+This simplifies the commutativity conditions for non-diagonal blocks to
+\[
+\forall b_{i,j}\in R:\left(\begin{array}{c|c|c|c}
+& \Sigma C_{1}b_{1,2}=b_{1,2}\Sigma C_{2} & \dots & \Sigma C_{1}b_{1,d}=b_{1,d}\Sigma C_{d}\\
+\hline
+\Sigma C_{2}b_{2,1} = b_{2,1}\Sigma C_{1} & & \dots & \Sigma C_{2}b_{2,d}=b_{2,d}\Sigma C_{d}\\
+\hline
+\vdots & \vdots & \ddots & \vdots
+\\
+\hline
+\Sigma C_{d}b_{d,1} = b_{2,1}\Sigma C_{1} & \Sigma C_{d}b_{d,2}=b_{d,2}\Sigma C_{2} & \dots & \\
+\end{array}\right),
+\]
+whence $\Sigma C_1=\dots=\Sigma C_d$.
+
+The converse implication is obvious.
+\end{proof}
+
+
+
